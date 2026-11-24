@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IT Help Desk Portal - Clickable Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#08172C;--navy:#08172C;--navy2:#13294A;--gold:#E8AE5C;--coral:#D55647;--brand:#C2412E;--brandDark:#A8402C;--grad:linear-gradient(90deg,#D55647 0%,#E08151 50%,#E8AE5C 100%);--sub:#AFC0D6;--bg:#F6F5F3;--text:#1A1F2B;--muted:#5B6577;--border:#DDE2EA;--green:#16794A;--greenBg:#E2F4E9;--red:#B42318;--redBg:#FDE8E7;--amber:#8A5C00;--amberBg:#FFF4D6;--blue:#1D5FBF;--blueBg:#E3EDFC;--violet:#5B3CC4;--violetBg:#EEE9FC;--gray:#475467;--grayBg:#EEF0F3}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.45}
+button{font:inherit;cursor:pointer}
+a{cursor:pointer}
+#demobar{position:sticky;top:0;z-index:20;background:#111827;color:#E5E7EB;display:flex;align-items:center;gap:12px;padding:8px 16px;flex-wrap:wrap;font-size:13px}
+.demo-tag{background:var(--gold);color:var(--navy);font-weight:700;padding:2px 8px;border-radius:4px;font-size:11px;letter-spacing:.5px}
+.roles{display:flex;gap:4px;background:#1F2937;padding:3px;border-radius:8px;flex-wrap:wrap}
+.roles button{background:none;border:0;color:#D1D5DB;padding:6px 12px;border-radius:6px;font-weight:500}
+.roles button.on{background:#fff;color:#111827;font-weight:600}
+.demobar-note{margin-left:auto;color:#9CA3AF;display:flex;align-items:center;gap:6px}
+.linkbtn{background:none;border:1px solid #374151;color:#E5E7EB;border-radius:6px;padding:5px 10px}
+.topnav{background:var(--navy);display:flex;align-items:center;justify-content:space-between;padding:14px 40px;gap:16px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:12px;color:#fff}
+.logo .mark{background:var(--gold);color:var(--navy);font-weight:700;border-radius:6px;padding:4px 8px}
+.logo b{display:block;font-size:16px}.logo small{color:var(--sub);font-size:12px}
+.navlinks{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+.navlinks a{color:#fff;font-weight:500}
+.navlinks a.on{color:var(--gold);font-weight:600}
+.chipuser{background:var(--navy2);color:#fff;border-radius:999px;padding:6px 12px;font-size:13px}
+.wrap{max-width:1280px;margin:0 auto;padding:32px 40px 64px}
+.card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:24px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+label.f{display:flex;flex-direction:column;gap:6px;font-weight:500;font-size:13px}
+input,select,textarea{font:inherit;border:1px solid var(--border);border-radius:8px;padding:10px 12px;background:#fff;color:var(--text);width:100%}
+input:disabled,select:disabled{background:var(--bg);color:var(--muted)}
+input:focus,select:focus,textarea:focus{outline:2px solid #9EC1F0;outline-offset:0;border-color:#9EC1F0}
+textarea{min-height:90px;resize:vertical}
+.btn{background:var(--navy);color:#fff;border:0;border-radius:8px;padding:10px 18px;font-weight:600}
+.btn.sec{background:#fff;color:var(--navy);border:1px solid var(--border)}
+.btn.sm{padding:6px 12px;font-size:13px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.badge{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap}
+.b-green{color:var(--green);background:var(--greenBg)}.b-red{color:var(--red);background:var(--redBg)}.b-amber{color:var(--amber);background:var(--amberBg)}.b-blue{color:var(--blue);background:var(--blueBg)}.b-violet{color:var(--violet);background:var(--violetBg)}.b-gray{color:var(--gray);background:var(--grayBg)}
+.muted{color:var(--muted)}.small{font-size:12px}
+h1{font-size:26px;margin:0;line-height:1.25}h2{font-size:18px;margin:0}
+.tbl{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:#fff;overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:12px;color:var(--muted);text-transform:uppercase;font-weight:600;background:var(--bg);padding:10px 14px;border-bottom:1px solid var(--border);white-space:nowrap}
+td{padding:12px 14px;border-bottom:1px solid var(--border);vertical-align:middle}
+tbody tr:last-child td{border-bottom:0}
+tr.row{cursor:pointer}tr.row:hover td{background:#FAFBFD}tr.sel td{background:#F3F7FD}
+.split{display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:20px;align-items:start}
+.app{display:grid;grid-template-columns:240px minmax(0,1fr);min-height:calc(100vh - 46px)}
+.side{background:var(--navy);padding:24px 16px;display:flex;flex-direction:column;justify-content:space-between;gap:20px}
+.side .nav{display:flex;flex-direction:column;gap:4px;margin-top:20px}
+.side .nav a{color:#D5DEEA;padding:10px 12px;border-radius:8px;font-weight:500;display:flex;justify-content:space-between;align-items:center}
+.side .nav a.on{background:var(--navy2);color:var(--gold);font-weight:600}
+.side .user{background:var(--navy2);border-radius:10px;padding:12px;color:#fff}
+.side select{margin-top:6px;background:#0F3357;color:#fff;border-color:#2B5480;padding:8px 10px}
+.main{padding:28px 32px 48px;min-width:0}
+.hdr{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:18px;flex-wrap:wrap}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.chip{border:1px solid var(--border);background:#fff;border-radius:999px;padding:6px 14px;font-weight:500;font-size:13px}
+.chip.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:16px}
+.kpi .v{font-size:28px;font-weight:700;margin:2px 0}
+.bar{display:grid;grid-template-columns:150px 1fr 48px;gap:12px;align-items:center;margin:9px 0}
+.track{background:var(--grayBg);border-radius:4px;height:10px;overflow:hidden}
+.fillb{height:100%;border-radius:4px}
+.log{display:flex;flex-direction:column;gap:12px}
+.log .it{display:flex;gap:10px}
+.dot{width:8px;height:8px;border-radius:50%;margin-top:6px;flex:none}
+.log .internal{background:var(--amberBg);border-radius:8px;padding:8px 10px}
+.notice{border-radius:8px;padding:10px 14px;font-size:13px}
+.n-blue{background:var(--blueBg);color:var(--blue)}.n-green{background:var(--greenBg);color:var(--green);border:1px solid #A6DDBE}.n-violet{background:var(--violetBg);color:var(--violet)}.n-amber{background:var(--amberBg);color:var(--amber)}
+.tabs{display:flex;gap:20px;border-bottom:1px solid var(--border)}
+.tabs a{white-space:nowrap;padding-bottom:8px;color:var(--muted);font-weight:500}
+.tabs a.on{color:var(--navy);font-weight:600;border-bottom:2px solid var(--gold)}
+.kv{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:3px 0}
+.stack>*+*{margin-top:14px}
+.sec-label{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.3px}
+hr.d{border:0;border-top:1px solid var(--border);margin:4px 0}
+.overlay{position:fixed;inset:0;background:rgba(11,42,74,.45);display:flex;align-items:center;justify-content:center;z-index:50;padding:16px}
+.dialog{background:#fff;border-radius:14px;padding:28px;width:440px;max-width:100%}
+.otp{font-size:24px;letter-spacing:8px;text-align:center;font-weight:600}
+.empty{text-align:center;padding:40px;color:var(--muted)}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#111827;color:#fff;padding:10px 16px;border-radius:8px;z-index:60;font-size:13px}
+.intro-grid{display:grid;grid-template-columns:400px minmax(0,1fr);gap:40px;align-items:start}
+.dash2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.dash3{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:16px;align-items:start}
+.dash2>*,.dash3>*,.kpis>*,.split>*{min-width:0}
+.step{display:flex;gap:12px}.step .n{background:var(--gold);color:var(--navy);font-weight:700;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex:none}
+.mini{border:1px solid var(--border);border-radius:8px;padding:10px 12px;cursor:pointer}
+.mini:hover{background:#FAFBFD}
+/* ---- DICT theme ---- */
+.small{font-size:12.5px}
+.tbl th{white-space:nowrap}
+.tt td:not(:first-child){white-space:nowrap}
+.tt td:first-child{min-width:180px}
+.tbl-more{padding:12px 14px;border-top:1px solid var(--border);text-align:center;background:#FCFBF9}
+hr.d{margin:8px 0}
+.sec-label{margin-top:2px}
+.kpi .small{line-height:1.35}
+@media (max-width:1500px){.dash3{grid-template-columns:minmax(0,1fr)}.dash3>.stack:last-child{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start}.dash3>.stack:last-child>*+*{margin-top:0}}
+@media (max-width:1100px){.dash3>.stack:last-child{grid-template-columns:minmax(0,1fr)}}
+.login{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:calc(100vh - 80px)}
+.login-side{background:var(--ink);color:#fff;padding:56px 56px 40px;display:flex;flex-direction:column;justify-content:center;gap:16px;border-right:4px solid transparent;border-image:var(--grad) 1}
+.login-seal{width:96px;height:96px}
+.login-side .eyebrow{color:var(--gold);font-weight:700;letter-spacing:1.6px;font-size:12px}
+.login-title{font-size:32px;line-height:1.2;color:#fff;margin:0;max-width:520px}
+.login-points{margin:4px 0 0;padding-left:18px;color:#C9D3E0;display:flex;flex-direction:column;gap:6px}
+.login-sec{display:flex;gap:8px;align-items:center;color:#AFC0D6;font-size:13px;margin-top:12px}
+.login-main{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;background:var(--bg)}
+.login-card{width:440px;max-width:100%;padding:32px}
+.ferr{color:var(--red);font-size:12px;font-weight:500}
+input[aria-invalid="true"]{border-color:var(--red)}
+.pwwrap{position:relative;display:block}.pwwrap input{padding-right:64px}.pwtoggle{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:0;color:var(--brandDark);font-weight:600;font-size:12px;padding:6px 8px}
+.demo-acc{border:1px dashed #E2C58F;background:#FFFBF2;border-radius:10px;padding:10px 12px}.demo-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.demo-list .chip{font-size:12px;padding:4px 10px}
+.search{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--border);border-radius:8px;padding:0 10px;min-width:260px}.search input{border:0;padding:10px 0;outline:none;background:transparent}.search button{background:none;border:0;color:var(--muted);padding:4px}
+.search:focus-within{outline:2px solid #F3C1AA;border-color:#E9A588}
+.hdr-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.qnote{font-size:13px;color:var(--muted);margin:-6px 0 12px}.qnote a{color:var(--brandDark);font-weight:600;text-decoration:underline}
+.linkcopy{background:none;border:1px solid var(--border);border-radius:6px;font-size:11px;font-weight:600;color:var(--brandDark);padding:3px 8px}
+@media (max-width:900px){.login{grid-template-columns:minmax(0,1fr)}.login-side{padding:28px 20px;border-right:0;border-bottom:4px solid transparent}.login-title{font-size:24px}.search{min-width:0;flex:1}}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+details.acts{border-top:1px solid var(--border);padding-top:10px}details.acts summary{cursor:pointer;font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.3px;list-style-position:inside}details.acts[open] summary{margin-bottom:12px}
+[tabindex="0"]:focus-visible,button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid #E08151;outline-offset:2px;border-radius:6px}
+@media (max-width:900px){.grid3{grid-template-columns:1fr}}
+.side-bottom{display:flex;flex-direction:column;gap:10px}
+.esc-note{background:rgba(232,174,92,.14);color:var(--gold);border-radius:8px;padding:8px 12px;font-size:12px;font-weight:600;cursor:pointer}
+.pwrap{position:relative}
+.pbtn{width:100%;display:flex;align-items:center;gap:10px;background:var(--navy2);border:1px solid #22406B;border-radius:12px;padding:10px 12px;color:#fff;text-align:left}
+.pbtn:hover{background:#1A3560}
+.pt{display:flex;flex-direction:column;min-width:0;flex:1}.pt b{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pt small{font-size:11px;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.av{position:relative;flex:none;width:36px;height:36px;border-radius:50%;background:var(--grad);color:#fff;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;font-family:Montserrat,Inter,sans-serif}
+.av.lg{width:44px;height:44px;font-size:15px}.av.xl{width:60px;height:60px;font-size:20px}
+.mfa-dot{position:absolute;right:-1px;bottom:-1px;width:11px;height:11px;border-radius:50%;background:#2E9E62;border:2px solid var(--navy2)}
+.pmenu{position:absolute;left:0;right:0;bottom:calc(100% + 8px);background:#fff;color:var(--text);border-radius:12px;box-shadow:0 12px 32px rgba(8,23,44,.35);padding:6px;z-index:30;min-width:240px}
+.pm-head{display:flex;gap:10px;align-items:center;padding:10px 10px 12px;border-bottom:1px solid var(--border);margin-bottom:4px}
+.pmenu a{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;font-weight:500;font-size:13px;color:var(--ink)}
+.pmenu a:hover{background:#FFF3EC}.pmenu a.danger{color:var(--red);border-top:1px solid var(--border);border-radius:0 0 8px 8px;margin-top:4px}
+.pm-sw{display:grid;grid-template-columns:16px 1fr;gap:4px 10px;align-items:center;padding:8px 10px;font-size:12px;color:var(--muted)}.pm-sw select{grid-column:1/-1;padding:6px 8px;font-size:13px}
+.sec-card{border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.codes{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}.codes code,code.key{background:var(--bg);border-radius:6px;padding:6px 8px;font-size:13px;text-align:center;letter-spacing:1px}
+.chk{display:flex;gap:8px;align-items:center;font-size:13px;padding:4px 0}.chk input{width:auto}
+.rules{margin:0;padding-left:18px;color:var(--muted)}
+.signin{min-height:calc(100vh - 80px);display:flex;align-items:center;justify-content:center;padding:32px 16px;background:linear-gradient(180deg,var(--ink) 0 38%,var(--bg) 38%)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin:10px 0 4px}.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.wp{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.wpday{background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px;min-height:260px}
+.wpday.today{border-color:#F0B9A3;box-shadow:0 0 0 2px #FBE3DA}
+.wph{font-size:13px;color:var(--muted);padding-bottom:6px;border-bottom:1px solid var(--border)}.wph b{color:var(--ink);font-size:14px}
+.wpi{border-left:4px solid;border-radius:8px;padding:8px 10px;cursor:pointer;font-size:13px;line-height:1.35}.wpi:hover{filter:brightness(.97)}
+.wp-legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted)}.wp-legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.tv{background:#050F1F;color:#fff;min-height:calc(100vh - 46px);padding:22px 28px;display:flex;flex-direction:column;gap:16px}
+.tv-top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.tv-actions{display:flex;align-items:center;gap:10px}.tv-clock{font-family:Montserrat,Inter,sans-serif;font-weight:700;font-size:18px;color:var(--gold);margin-right:8px}
+.tv-kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.tv-k{background:#0C1E38;border-radius:14px;padding:16px 20px;position:relative;overflow:hidden}.tv-k:before{content:'';position:absolute;left:0;right:0;top:0;height:4px;background:var(--grad)}
+.tv-k .l{color:#AFC0D6;font-size:14px;font-weight:500}.tv-k .v{font-family:Montserrat,Inter,sans-serif;font-size:46px;font-weight:800;line-height:1.15}.tv-k .s{color:#8FA3BF;font-size:13px}
+.tv-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:14px;flex:1}
+.tv-card{background:#0C1E38;border-radius:14px;padding:16px 20px}.tv-card h2{font-size:16px;color:#fff;margin-bottom:4px}
+.tv .legend{color:#AFC0D6}.tv .bar{grid-template-columns:140px 1fr 96px;font-size:15px;margin:14px 0}.tv .bar b{color:#fff}.tv .track{background:#1B2F4F;height:14px}
+.tv .logo small{color:var(--gold)}
+.tv-foot{display:flex;justify-content:space-between;color:#8FA3BF;font-size:12px}.tv-foot b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+@media (max-width:1150px){.wp{grid-template-columns:repeat(2,minmax(0,1fr))}.tv-kpis{grid-template-columns:repeat(3,1fr)}.tv-grid{grid-template-columns:1fr}}
+@media (max-width:900px){.wp{grid-template-columns:1fr}}
+.staffpage{min-height:calc(100vh - 46px);display:flex;flex-direction:column}.staffpage>.wrap{flex:1;width:100%}
+h1,h2,.kpi .v,.logo b{font-family:Montserrat,Inter,sans-serif}
+h1{font-weight:800;letter-spacing:-.2px}h2{font-weight:700}
+.btn{background:var(--brand)}.btn:hover:not(:disabled){background:var(--brandDark)}
+.btn.sec{color:var(--ink)}.btn.sec:hover:not(:disabled){background:#FFF6F1;border-color:#F0C9B8}
+input:focus,select:focus,textarea:focus{outline:2px solid #F3C1AA;border-color:#E9A588}
+.topnav{border-bottom:4px solid transparent;border-image:var(--grad) 1;padding:12px 40px}
+.topnav.flat{border-bottom:0}
+.logo img{height:48px;width:auto;display:block}
+.logo small{color:var(--gold);font-weight:500;letter-spacing:.2px}
+.navlinks a{padding:4px 0;border-bottom:2px solid transparent}
+.navlinks a.on{color:#fff;border-image:var(--grad) 1;border-bottom:2px solid}
+.chip{color:var(--ink)}
+.n-esc{background:#FFF3EC;border:1px solid #F3C1AA;color:var(--ink)}
+.b-esc{background:var(--ink);color:var(--gold)}
+.chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
+button.chip{transition:background .15s,color .15s,border-color .15s}
+button.chip:hover,button.chip:active,button.chip:focus-visible{background:var(--ink);border-color:var(--ink);color:#fff}
+tr.row:hover td{background:#FFFBF8}tr.sel td{background:#FFF3EC}
+.side{background:var(--ink)}
+.side .nav a.on{background:rgba(255,255,255,.07);color:var(--gold);box-shadow:inset 3px 0 0 var(--coral)}
+.side .user{background:var(--navy2)}
+.side select{background:#0E2240;border-color:#2A4166}
+.tabs a.on{color:var(--ink);border-bottom:2px solid var(--coral)}
+.step .n{background:var(--brand);color:#fff}
+.kpi{position:relative;overflow:hidden}.kpi:before{content:'';position:absolute;left:0;right:0;top:0;height:3px;background:var(--grad)}
+.hero{background:var(--ink);color:#fff;border-bottom:4px solid transparent;border-image:var(--grad) 1}
+.hero-in{display:flex;align-items:center;justify-content:space-between;gap:32px;padding-top:36px;padding-bottom:36px}
+.hero .eyebrow{color:var(--gold);font-weight:700;letter-spacing:1.6px;font-size:12px;margin-bottom:8px}
+.hero h1{font-size:38px;color:#fff;line-height:1.15}
+.hl{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:#C9D3E0;font-size:15px;max-width:620px;margin:12px 0 0}
+.hero img{width:128px;height:128px;flex:none;opacity:.95}
+.foot{background:var(--ink);border-top:4px solid transparent;border-image:var(--grad) 1;color:#fff;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:12px 40px;font-size:13px;font-weight:600;}
+.foot i{font-style:italic;font-weight:600;color:var(--gold)}
+.mainfoot{margin-top:32px;padding-top:14px;border-top:1px solid var(--border);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.mainfoot b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:700}
+.dlg-logo{height:48px;width:auto;display:block;margin:0 auto}
+.govbar{background:#EFECE7;color:var(--ink);font-size:12px;border-bottom:1px solid #E2DDD5}
+.govin{max-width:1360px;margin:0 auto;padding:6px 40px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.govin button{background:none;border:0;color:var(--brandDark);font-weight:600;font-size:12px;padding:0;display:inline-flex;align-items:center;gap:4px;text-decoration:underline}
+.govmore{max-width:1360px;margin:0 auto;padding:10px 40px 16px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.govmore .gi{display:flex;gap:12px;align-items:flex-start}
+.govmore .gi svg{flex:none}
+.govmore b{display:block;font-size:13px;margin-bottom:2px}
+@media (max-width:900px){.govin,.govmore{padding-left:16px;padding-right:16px}.govmore{grid-template-columns:1fr}}
+.prog{display:flex;align-items:flex-start;margin-top:10px}
+.prog .st{flex:1;display:flex;flex-direction:column;align-items:center;position:relative;text-align:center;font-size:11px;color:var(--muted);line-height:1.3}
+.prog .st:before{content:'';position:absolute;top:10px;left:-50%;width:100%;height:2px;background:var(--border)}
+.prog .st:first-child:before{display:none}
+.prog .st.done:before,.prog .st.cur:before{background:var(--coral)}
+.prog .c{width:22px;height:22px;border-radius:50%;background:#fff;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;position:relative;z-index:1;margin-bottom:5px}
+.prog .done .c{background:var(--brand);border-color:var(--brand)}
+.prog .cur .c{border-color:var(--brand);box-shadow:0 0 0 4px #FBE3DA}
+.prog .cur .c:after{content:'';width:8px;height:8px;border-radius:50%;background:var(--brand)}
+.prog .done,.prog .cur{color:var(--ink);font-weight:600}
+.prog .hold{color:var(--amber)}
+.prog small{display:block;font-weight:400;color:var(--muted);font-size:10px}
+.pbar{display:flex;align-items:center;gap:10px}.pbar .track{flex:1;height:8px}
+.mini-prog{height:4px;background:var(--grayBg);border-radius:2px;margin-top:6px;width:96px;overflow:hidden}.mini-prog span{display:block;height:100%;background:var(--grad)}
+@media (max-width:1150px){.split,.dash3{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:900px){.app{grid-template-columns:1fr}.intro-grid,.dash2,.grid2{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}.wrap,.main{padding:20px 16px 48px}.topnav{padding:12px 16px}.demobar-note{margin-left:0}.hero img{display:none}.hero h1{font-size:28px}.foot{padding:12px 16px}}
+</style>
+</head>
+<body>
+<div id="demobar"></div>
+<div id="govbar"></div>
+<div id="app"></div>
+<div id="modal"></div>
+<script>
+const KEY='ithd-demo-v6';
+const H=36e5;
+const DEMO_CODE='482913';
+const SLA={Critical:4,High:8,Normal:24,Low:40}; // working hours
+const WORK={start:8,end:16}; // Mon-Fri, 8 working hours a day
+const HOLIDAYS=['2026-12-25','2026-12-28','2027-01-01','2027-03-26','2027-03-29']; // sample PNG public holidays
+const IMPACTS=['Just me','My team or floor','A whole division or more'];
+const URGENCIES=['I can work around it','It slows my work down',"I can't work at all"];
+function suggestPriority(i,u){if(u===2)return i>=1?'Critical':'High';if(u===1)return i===2?'High':'Normal';return i===2?'Normal':'Low';}
+const PRANK={Critical:0,High:1,Normal:2,Low:3};
+const CATS=["Email & Accounts","Hardware & Printers","Network & Wi-Fi","Software","Access Requests","Other"];
+const DIVS=["Shared Services","Compliance","Cybersecurity","SSM","DTO Coordination","Corporate Services"];
+const LEVELS=["Ground","Level 1","Level 2","Level 3","Level 4","Level 5"];
+const OFFICERS=["Mary Toua","Robert Gabi","Samuel Aisi","Lina Hosea"];
+const stTone={Open:'blue',Assigned:'violet','In Progress':'amber','On Hold':'gray',Resolved:'green',Closed:'gray'};
+const prTone={Critical:'red',High:'amber',Normal:'blue',Low:'gray'};
+const UI0={role:'staff',staffTab:'submit',selStaff:null,officer:'Mary Toua',officerTab:'queue',qFilter:'all',selQ:null,mgrTab:'dashboard',allFilter:'open',selAll:null,noteTab:'reply',banner:null,otp:null,draft:''};
+let ui=Object.assign({},UI0);
+
+function isWorkday(d){const g=d.getDay();return g>0&&g<6&&!HOLIDAYS.includes(ymd(d));}
+function nextDayStart(d){const x=new Date(d);x.setDate(x.getDate()+1);x.setHours(WORK.start,0,0,0);return x;}
+function bizAdd(ts,hours){let d=new Date(ts),left=hours*60,g=0;while(left>0&&g++<4000){if(!isWorkday(d)){d=nextDayStart(d);continue;}const st=new Date(d);st.setHours(WORK.start,0,0,0);const en=new Date(d);en.setHours(WORK.end,0,0,0);if(d<st)d=st;if(d>=en){d=nextDayStart(d);continue;}const avail=(en-d)/6e4;if(left<=avail){d=new Date(d.getTime()+left*6e4);left=0;}else{left-=avail;d=nextDayStart(d);}}return d.getTime();}
+function bizBetween(a,b){if(b<=a)return 0;let d=new Date(a),mins=0,g=0;while(d.getTime()<b&&g++<4000){if(!isWorkday(d)){d=nextDayStart(d);continue;}const st=new Date(d);st.setHours(WORK.start,0,0,0);const en=new Date(d);en.setHours(WORK.end,0,0,0);if(d<st)d=st;if(d>=en){d=nextDayStart(d);continue;}const stop=Math.min(en.getTime(),b);if(stop>d.getTime())mins+=(stop-d.getTime())/6e4;d=en;}return mins/60;}
+const dueFor=(created,p)=>bizAdd(created,SLA[p]);
+function weekStart(off){const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7)+(off||0)*7);return d;}
+function addDays(d,n){const x=new Date(d);x.setDate(x.getDate()+n);return x;}
+function ymd(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function seedPlans(){const m=weekStart(0);const D=i=>ymd(addDays(m,i));let k=0;const P=(title,type,owner,day,start,dur,notes,by)=>({id:'P'+(++k),title,type,owner,date:D(day),start,dur,notes:notes||'',by:by||owner});
+  const list=[P('Weekly IT team stand-up','Team meeting','Whole team',0,'09:00',1,'Review open tickets, overdue items and escalations.','IT Manager'),P('Patch Level 4 network switches','Maintenance','Mary Toua',0,'14:00',2,'Firmware update after the Level 4 outage.'),P('Re-image laptops for new staff','Task','Robert Gabi',1,'10:00',3),P('Server room UPS check','Maintenance','Samuel Aisi',2,'08:00',2,'Quarterly battery and load test.'),P('Phishing awareness session','Training','Lina Hosea',2,'13:00',1,'For Compliance division staff.'),P('Annual leave','Leave','Robert Gabi',3,'08:00',8),P('SLA review with IT Manager','Team meeting','Whole team',3,'09:00',1,'Look at missed SLAs and the Critical queue.','IT Manager'),P('Printer fleet service','Maintenance','Mary Toua',3,'13:00',3),P('Weekly ticket report','Task','IT Manager',4,'15:00',1,'Export and send to the Executive Manager.'),P('Next week stand-up','Team meeting','Whole team',7,'09:00',1,'','IT Manager')];
+  return {plans:list,pseq:k};}
+function seed(){
+  const now=Date.now();let n=100;
+  const people=[["Peter Wari","p.wari","Cybersecurity","Level 4"],["Grace Pomat","g.pomat","SSM","Level 2"],["Ruth Kaupa","r.kaupa","Corporate Services","Level 5"],["Ben Lahari","b.lahari","Compliance","Level 2"],["John Kila","j.kila","Shared Services","Level 3"],["Anna Sere","a.sere","DTO Coordination","Level 1"],["Paul Ivi","p.ivi","Shared Services","Level 3"],["Joyce Mek","j.mek","Compliance","Level 2"]].map(([name,u,division,level])=>({name,email:u+"@ict.gov.pg",division,level}));
+  const T=[];
+  function mk(o){
+    n++;const id="IT-2026-"+String(n).padStart(4,'0');const created=now-o.ago*H;
+    const t={id,subject:o.s,desc:o.d||(o.s+'.'),category:o.c,priority:o.p,status:o.st,requester:people[o.r],assignee:o.a||null,created,due:dueFor(created,o.p),resolvedAt:null,attachment:'',log:[]};
+    if(o.resFrac!=null)t.resolvedAt=created+(t.due-created)*o.resFrac;else if(o.res!=null)t.resolvedAt=created+o.res*H;
+    if(t.resolvedAt&&t.resolvedAt>now-0.5*H)t.resolvedAt=Math.max(created+0.3*H,now-0.5*H);
+    t.log.push({at:created,kind:'system',text:'Ticket created by '+t.requester.name+' ('+o.p+')'});
+    if(t.assignee)t.log.push({at:created+0.2*H,kind:'system',text:'Assigned to '+t.assignee+' by IT Manager'});
+    if(t.assignee&&!['Open','Assigned'].includes(o.st))t.log.push({at:bizAdd(created,o.fr!=null?o.fr:0.4),kind:'system',text:'Status set to In Progress by '+t.assignee});
+    if(o.reopen){t.reopens=1;}
+    if(o.extra)o.extra(t);
+    if(t.resolvedAt)t.log.push({at:t.resolvedAt,kind:'system',text:'Marked Resolved by '+t.assignee});
+    if(o.reopen&&t.resolvedAt)t.log.push({at:t.resolvedAt-0.3*(t.resolvedAt-t.created),kind:'system',text:'Reopened by '+t.requester.name+': still not working'});
+    if(o.st==='Closed')t.log.push({at:Math.min(t.resolvedAt+2*H,now-0.2*H),kind:'system',text:'Closed: requester confirmed it was fixed'});
+    t.log.sort((a,b)=>a.at-b.at);
+    T.push(t);
+  }
+  let sd=7;const rnd=()=>{sd=(sd*9301+49297)%233280;return sd/233280;};
+  const subj={"Email & Accounts":["Password reset","Outlook not syncing","Mailbox full","New staff email account"],"Hardware & Printers":["Printer jam","Monitor flickering","Keyboard not working","Laptop battery failing"],"Network & Wi-Fi":["Wi-Fi drops often","Can't reach shared drive","Slow internet","Network port not working"],"Software":["Install Adobe Reader","Excel keeps crashing","Update antivirus","Teams audio issue"],"Access Requests":["Shared drive access","System account request","Folder permissions"],"Other":["Projector setup","Desk phone fault"]};
+  const catW=[.28,.22,.18,.14,.11,.07];
+  const pri=["Critical","High","High","Normal","Normal","Normal","Normal","Low","Low"];
+  for(let i=0;i<120;i++){
+    let r=rnd(),ci=0,acc=0;for(;ci<catW.length-1;ci++){acc+=catW[ci];if(r<acc)break;}
+    const c=CATS[ci];const list=subj[c];const p=pri[Math.floor(rnd()*pri.length)];
+    {const oi=Math.floor(rnd()*4);mk({s:list[Math.floor(rnd()*list.length)],c,p,st:'Closed',r:Math.floor(rnd()*people.length),a:OFFICERS[oi],ago:30+rnd()*960,resFrac:0.15+rnd()*1.0,fr:Math.min(SLA[p]*0.5,(0.1+rnd()*1.6)*(1+oi*0.35)),reopen:rnd()<0.04+oi*0.03});}
+  }
+  mk({s:"Network down on Level 4",d:"No network on the whole of Level 4 since 9am. Phones and laptops can't connect. About 20 staff affected.",c:"Network & Wi-Fi",p:"Critical",st:"In Progress",r:0,a:"Mary Toua",ago:26,extra:t=>t.log.push({at:t.created+1.2*H,kind:'internal',by:'Mary Toua',text:'Comms room switch not powering on. Checking the UPS.'})});
+  mk({s:"Printer on Level 3 jams",d:"The shared printer near the lifts jams on every second page.",c:"Hardware & Printers",p:"Normal",st:"In Progress",r:4,a:"Mary Toua",ago:26,extra:t=>t.log.push({at:t.created+3*H,kind:'public',by:'Mary Toua',text:"I'll come to Level 3 after 2pm to check the paper tray."})});
+  mk({s:"New staff email account",d:"New officer starting Monday needs an email account and shared drive access.",c:"Email & Accounts",p:"High",st:"Assigned",r:1,a:"Mary Toua",ago:19});
+  mk({s:"Projector not working, Board Room",d:"Projector shows 'no signal' with every laptop.",c:"Other",p:"Normal",st:"On Hold",r:2,a:"Mary Toua",ago:30,extra:t=>(t.holdAt=t.created+2*H,t.log.push({at:t.created+2*H,kind:'system',text:'Status set to On Hold by Mary Toua'}),t.log.push({at:t.created+2*H,kind:'public',by:'Mary Toua',text:'Waiting for a replacement HDMI cable from stores.'}))});
+  mk({s:"Install Adobe Reader",c:"Software",p:"Low",st:"Assigned",r:3,a:"Mary Toua",ago:20});
+  mk({s:"Laptop won't boot",d:"Laptop shows a black screen after the logo.",c:"Hardware & Printers",p:"High",st:"In Progress",r:6,a:"Samuel Aisi",ago:50,extra:t=>{const why='Motherboard fault. Needs approval to order a replacement part.';t.escalated={at:t.created+30*H,by:'Samuel Aisi',reason:why};t.log.push({at:t.created+30*H,kind:'internal',by:'Samuel Aisi',text:'Escalated to IT Manager: '+why});}});
+  mk({s:"Shared drive permissions",d:"Can't open the Compliance shared folder since Friday.",c:"Access Requests",p:"Normal",st:"Open",r:7,ago:120});
+  mk({s:"Phone extension fault",d:"Extension 2214 has no dial tone.",c:"Other",p:"High",st:"In Progress",r:5,a:"Robert Gabi",ago:27});
+  mk({s:"Outlook keeps asking for password",d:"Outlook prompts for my password every few minutes.",c:"Email & Accounts",p:"Normal",st:"Open",r:6,ago:1});
+  mk({s:"VPN not connecting",d:"VPN fails with an authentication error.",c:"Network & Wi-Fi",p:"Normal",st:"Resolved",r:4,a:"Lina Hosea",ago:40,res:20});
+  mk({s:"Excel keeps crashing",c:"Software",p:"Low",st:"Assigned",r:7,a:"Lina Hosea",ago:10});
+  const pl=seedPlans();T.forEach(t=>{if(t.resolvedAt&&t.resolvedAt>now){t.resolvedAt=now-0.5*H;}});
+  return {tickets:T,seq:n,profiles:{},session:null,plans:pl.plans,pseq:pl.pseq};
+}
+
+function load(){try{const v=localStorage.getItem(KEY);if(v)return JSON.parse(v);}catch(e){}return null;}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+let S=load()||seed();
+if(S.itSession&&S.itSession.role==='officer')ui.officer=S.itSession.name;
+
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const now=()=>Date.now();
+const isOpen=t=>!['Resolved','Closed'].includes(t.status);
+const isOver=t=>isOpen(t)&&t.status!=='On Hold'&&now()>t.due;
+const find=id=>S.tickets.find(t=>t.id===id);
+const lastAt=t=>t.log.reduce((m,l)=>l.at<=now()&&l.at>m?l.at:m,t.created);
+const badge=(txt,tone)=>`<span class="badge b-${tone}">${esc(txt)}</span>`;
+function dur(ms){const h=Math.abs(ms)/H;if(h<1)return Math.max(1,Math.round(h*60))+'m';const th=Math.round(h);if(th<24)return th+'h';const d=Math.floor(th/24),r=th%24;return d+'d'+(r?' '+r+'h':'');}
+function ago(ts){const ms=now()-ts;return ms<60e3?'just now':dur(ms)+' ago';}
+function fmt(ts){try{return new Date(ts).toLocaleString('en-AU',{weekday:'short',day:'numeric',month:'short',hour:'numeric',minute:'2-digit'});}catch(e){return new Date(ts).toString();}}
+function wdur(h){if(h<1)return Math.max(1,Math.round(h*60))+'m';const th=Math.round(h);if(th<8)return th+'h';const d=Math.floor(th/8),r=th%8;return d+'d'+(r?' '+r+'h':'');}
+function slaTxt(t){
+  if(!isOpen(t))return t.resolvedAt&&t.resolvedAt<=t.due?['Met SLA','green']:['Missed SLA','red'];
+  if(t.status==='On Hold')return['Paused','gray'];
+  const n=now();
+  if(n>t.due){const oh=bizBetween(t.due,n);return[oh<0.25?'Overdue':'Overdue '+wdur(oh),'red'];}
+  const left=bizBetween(n,t.due);
+  if(left<4)return[wdur(left)+' left','amber'];
+  return[wdur(left)+' left','green'];
+}
+function opts(list,v){return list.map(x=>`<option ${x===v?'selected':''}>${esc(x)}</option>`).join('');}
+function log(t,kind,text,by){t.log.push({at:now(),kind,text,by});}
+let toastTimer;function toast(m){let d=document.getElementById('toast');if(!d){d=document.createElement('div');d.id='toast';d.className='toast';document.body.appendChild(d);}d.textContent=m;d.style.display='block';clearTimeout(toastTimer);toastTimer=setTimeout(()=>{d.style.display='none';},2400);}
+function byName(){return ui.role==='officer'?ui.officer:'IT Manager';}
+function setStatus(t,s,by){if(s===t.status)return;const was=t.status;
+  if(was==='On Hold'&&t.holdAt){const h=bizBetween(t.holdAt,now());t.due=bizAdd(t.due,h);t.holdAt=null;if(h>0.05)log(t,'system','SLA clock restarted after '+h.toFixed(1)+' working hours on hold. New due time '+fmt(t.due));}
+  t.status=s;if(s==='On Hold')t.holdAt=now();
+  if(s==='Resolved'){t.resolvedAt=now();}else if(isOpen(t)){t.resolvedAt=null;}log(t,'system','Status set to '+s+' by '+by+(s==='On Hold'?' (SLA clock paused)':''));}
+function autoClose(){let n=0;S.tickets.forEach(t=>{if(t.status==='Resolved'&&t.resolvedAt&&bizBetween(t.resolvedAt,now())>=24){t.status='Closed';t.log.push({at:now(),kind:'system',text:'Closed automatically: no reply from the requester within 3 working days'});n++;}});if(n)save();}
+const STEPS=['Submitted','Assigned','In Progress','Resolved','Closed'];
+const STAGE={Open:0,Assigned:1,'In Progress':2,'On Hold':2,Resolved:3,Closed:4};
+const pctOf=t=>Math.round((STAGE[t.status]+1)/STEPS.length*100);
+function stepTime(t,i){if(i===0)return t.created;const pats=[null,'Assigned to','In Progress','Resolved','Closed'];const l=t.log.slice().reverse().find(x=>x.kind==='system'&&x.text.includes(pats[i]));return l?l.at:null;}
+function progressHtml(t){
+  const idx=STAGE[t.status],fin=t.status==='Closed',pct=pctOf(t);
+  return `<div class="progress"><div class="sec-label">PROGRESS</div><div class="prog">${STEPS.map((st,i)=>{const cls=(i<=idx||fin)?'done':(i===idx+1?'cur':'');const hold=i===2&&t.status==='On Hold';const tm=cls?stepTime(t,i):null;return `<div class="st ${cls}"><span class="c">${cls==='done'?'<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="m5 12 5 5 9-10" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>':''}</span><span class="${hold?'hold':''}">${hold?'On Hold':st}</span>${tm?`<small>${ago(tm)}</small>`:''}</div>`;}).join('')}</div></div>`;
+}
+const logo=()=>`<div class="logo"><img src="assets/emblem-color.png" alt="DICT emblem"><div><b>IT Help Desk</b><small>Department of ICT</small></div></div>`;
+const FOOT=`<footer class="foot"><span>PNG Department of Information and Communications Technology</span><i>"Driving Digital Transformation in PNG"</i><span>ict.gov.pg</span></footer>`;
+const MAINFOOT=`<div class="mainfoot"><span>IT Help Desk · Department of Information and Communications Technology</span><b>Driving Digital Transformation in PNG</b></div>`;
+const sortQ=(a,b)=>(isOver(b)-isOver(a))||(PRANK[a.priority]-PRANK[b.priority])||(a.due-b.due);
+
+/* ---------- Demo bar ---------- */
+function renderBar(){
+  const roles=[['staff','Staff'],['officer','IT Officer'],['manager','IT Manager'],['em','Executive Manager']];
+  document.getElementById('demobar').innerHTML=`<span class="demo-tag">DEMO</span><span>View as:</span><div class="roles">${roles.map(([k,l])=>`<button data-act="role" data-v="${k}" class="${ui.role===k?'on':''}">${l}</button>`).join('')}</div><span class="demobar-note"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="4" y="11" width="16" height="10" rx="2" stroke="#9CA3AF" stroke-width="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="#9CA3AF" stroke-width="2"/></svg>Production: office network only · Sample data</span><button class="linkbtn" data-act="reset">Reset demo</button>`;
+}
+
+/* ---------- Staff ---------- */
+function renderStaff(){
+  const p=S.session&&S.profiles[S.session];
+  const sub=ui.staffTab==='submit';
+  const hero=sub?`<section class="hero"><div class="wrap hero-in"><div><div class="eyebrow">IT HELP DESK · INTERNAL</div><h1>Need IT help? <span class="hl">Tell us what's wrong.</span></h1><p>Submit a request and the IT Division will log it, assign an officer and keep you updated by email until it's resolved.</p></div><img src="assets/seal-white.png" alt="Department of Information and Communications Technology seal"></div></section>`:'';
+  return `<div class="staffpage"><div class="topnav ${sub?'flat':''}">${logo()}<div class="navlinks"><a class="${sub?'on':''}" data-act="stab" data-v="submit">Submit a Request</a><a class="${!sub?'on':''}" data-act="stab" data-v="mine">My Tickets</a>${p?`<span class="chipuser">${esc(p.email)}</span>`:`<span class="chipuser" style="opacity:.75">Not signed in</span>`}</div></div>${hero}<div class="wrap">${sub?submitView(p):mineView(p)}</div>${FOOT}</div>`;
+}
+function submitView(p){
+  const lock=p?'disabled':'';
+  return `<div class="intro-grid"><div class="stack">
+  <div class="card stack"><h2 style="font-size:16px">How it works</h2>${[['1','Submit your request','Tell us your division, floor and what the problem is.'],['2','Confirm your email','First time on a device only: enter the 6-digit code we email you.'],['3','Track progress','Follow updates in My Tickets and by email.']].map(([n,a,b])=>`<div class="step"><span class="n">${n}</span><div><b>${a}</b><div class="muted small">${b}</div></div></div>`).join('')}</div>
+  <div class="card stack"><h2 style="font-size:16px">Target resolution times</h2>${Object.entries({Critical:'4 working hours',High:'1 working day',Normal:'3 working days',Low:'5 working days'}).map(([k,v])=>`<div class="kv">${badge(k,prTone[k])}<span style="font-weight:500">${v}</span></div>`).join('')}<div class="small muted">Working hours are Mon–Fri, 8:00 am – 4:00 pm, excluding public holidays. Targets to be confirmed with the IT Division.</div></div></div>
+  <form class="card stack" id="submitForm" style="padding:32px" novalidate>
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap"><div><h2 style="font-size:22px">Submit a support request</h2><div class="muted small">Fields marked * are required.</div></div>${p?'':`<button type="button" class="btn sec sm" data-act="sample">Use sample details (John Kila)</button>`}</div>
+  ${p?`<div class="notice n-green">Signed in as <b>${esc(p.name)}</b> (${esc(p.email)}), so your details are filled in. <a style="text-decoration:underline" data-act="signout">Not you? Sign out</a></div>`:''}
+  <div class="sec-label">YOUR DETAILS</div>
+  <div class="grid2"><label class="f">Department email *<input name="email" type="email" placeholder="name@ict.gov.pg" value="${p?esc(p.email):''}" ${lock}></label><label class="f">Full name *<input name="name" placeholder="Your full name" value="${p?esc(p.name):''}" ${lock}></label>
+  <label class="f">Division *<select name="division" ${lock}>${opts(DIVS,p&&p.division)}</select></label><label class="f">Level / Floor *<select name="level" ${lock}>${opts(LEVELS,p?p.level:'Level 3')}</select></label></div>
+  <hr class="d"><div class="sec-label">YOUR ISSUE</div>
+  <div class="grid2"><label class="f">Category *<select name="category">${opts(CATS)}</select></label><label class="f">Who is affected? *<select name="impact">${IMPACTS.map((x,i)=>`<option value="${i}">${x}</option>`).join('')}</select></label></div>
+  <label class="f">How much is it stopping your work? *<select name="urgency">${URGENCIES.map((x,i)=>`<option value="${i}" ${i===1?'selected':''}>${x}</option>`).join('')}</select><span class="small muted" style="font-weight:400">The IT team uses this to set the priority. You don't need to pick one.</span></label>
+  <label class="f">Subject *<input name="subject" placeholder="e.g. Can't sign in to Outlook"></label>
+  <label class="f">Description *<textarea name="desc" placeholder="What happened, when it started and who is affected"></textarea></label>
+  <label class="f">Attachment (optional)<input type="file" name="file" accept="image/*,.pdf"></label>
+  ${p?'':`<div class="notice n-blue">First time here? We'll email you a 6-digit code to confirm your address. After that, your details fill in automatically on this device.</div>`}
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><span class="small muted">You'll get a ticket number by email.</span><button class="btn" type="submit">Submit request</button></div></form></div>`;
+}
+function mineView(p){
+  if(!p){
+    return `<div style="max-width:520px;margin:20px auto" class="stack"><form class="card stack" id="signinForm" novalidate><img src="assets/seal-color.png" alt="DICT seal" style="width:96px;height:96px;display:block;margin:0 auto"><h1>See your tickets</h1><p class="muted" style="margin:0">Enter your department email and we'll send you a one-time code. No password needed.</p><label class="f">Department email<input name="email" type="email" placeholder="name@ict.gov.pg"></label><div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><button type="button" class="btn sec" data-act="samplesignin">Use j.kila@ict.gov.pg</button><button class="btn" type="submit">Send code</button></div></form>${explainer()}</div>`;
+  }
+  const allMine=S.tickets.filter(t=>t.requester.email===p.email).sort((a,b)=>(isOpen(b)-isOpen(a))||(b.created-a.created));
+  const recent=t=>isOpen(t)||(now()-lastAt(t))<14*24*H;
+  const older=allMine.filter(t=>!recent(t));
+  const mine=ui.showOlder?allMine:allMine.filter(recent);
+  const sel=find(ui.selStaff)&&find(ui.selStaff).requester.email===p.email?find(ui.selStaff):mine[0];
+  const cnt=s=>allMine.filter(s).length;
+  return `${ui.banner?`<div class="notice n-green" style="margin-bottom:20px"><b>Request ${esc(ui.banner)} submitted.</b> We've emailed you a copy. An IT officer will be assigned shortly.</div>`:''}
+  <div class="hdr"><div><h1 style="font-size:28px">My Tickets</h1><div class="muted">${esc(p.name)} · ${esc(p.division)} · ${esc(p.level)}</div></div><button class="btn" data-act="stab" data-v="submit">New request</button></div>
+  <div class="chips">${[['Open',t=>['Open','Assigned'].includes(t.status),'blue'],['In progress',t=>['In Progress','On Hold'].includes(t.status),'amber'],['Resolved',t=>!isOpen(t),'green']].map(([l,f,tn])=>`<span class="chip" style="cursor:default">${l} ${badge(cnt(f),tn)}</span>`).join('')}</div>
+  <div class="split"><div class="tbl">${mine.length?`<table><thead><tr><th>Ticket</th><th>Subject</th><th>Status</th><th>Assigned to</th><th>Updated</th></tr></thead><tbody>${mine.map(t=>`<tr class="row ${sel&&t.id===sel.id?'sel':''}" data-act="selstaff" data-v="${t.id}"><td style="white-space:nowrap">${t.id}</td><td>${esc(t.subject)}</td><td>${badge(t.status,stTone[t.status])}</td><td>${t.assignee?esc(t.assignee):'<span class="muted">Not yet assigned</span>'}</td><td class="muted" style="white-space:nowrap">${ago(lastAt(t))}</td></tr>`).join('')}</tbody></table>`:`<div class="empty">You have no open or recent requests.</div>`}${older.length?`<div class="tbl-more"><button class="btn sec sm" data-act="toggleolder">${ui.showOlder?'Hide':'Show'} ${older.length} older closed ticket${older.length===1?'':'s'}</button></div>`:''}</div>
+  <div class="stack">${sel?staffDetail(sel):''}${explainer(true)}</div></div>`;
+}
+function explainer(signedIn){
+  return `<div class="card stack" style="background:#FBFCFE"><h2 style="font-size:15px">${signedIn?'Why am I signed in without a password?':'How signing in works'}</h2><div class="small muted">${signedIn?'You confirmed this email with a one-time code, so this browser remembers you (for 30 days in the real portal). Your tickets are matched to your verified email. On a new device, or after you sign out, you just confirm your email again.':'There are no passwords. Proving you can open your @ict.gov.pg inbox is enough. After that, this browser remembers you for a while, so you can submit and track requests without signing in each time.'}</div></div>`;
+}
+function staffDetail(t){
+  const [s,tone]=slaTxt(t);
+  return `<div class="card stack"><div class="kv"><span class="small muted" style="font-weight:600">${t.id}</span>${badge(t.status,stTone[t.status])}</div><h2 style="font-size:20px">${esc(t.subject)}</h2>
+  ${progressHtml(t)}
+  <div><div class="kv"><span class="muted">Category</span><span style="font-weight:500">${esc(t.category)}</span></div><div class="kv"><span class="muted">Priority</span><span>${badge(t.priority,prTone[t.priority])} <span class="small muted">set by IT</span></span></div>${t.impact!=null?`<div class="kv"><span class="muted">You told us</span><span class="small" style="text-align:right">${IMPACTS[t.impact]} · ${URGENCIES[t.urgency]}</span></div>`:''}<div class="kv"><span class="muted">Assigned to</span><span style="font-weight:500">${t.assignee?esc(t.assignee):'Not yet assigned'}</span></div><div class="kv"><span class="muted">${isOpen(t)?'Resolution due':'Resolution'}</span><span style="font-weight:600;color:var(--${tone==='gray'?'gray':tone})">${isOpen(t)?fmt(t.due):s}</span></div></div>
+  <div class="small">${esc(t.desc)}</div>
+  ${t.status==='Resolved'?`<div class="notice n-green stack" style="margin-top:14px"><div><b>${esc(t.assignee)} marked this as resolved.</b> Is it fixed? If we don't hear back within 3 working days, it closes automatically.</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" data-act="confirmfix" data-v="${t.id}">Yes, close it</button><button class="btn sec sm" data-act="reopen" data-v="${t.id}">No, still not working</button></div></div>`:''}
+  <hr class="d"><div class="sec-label">ACTIVITY</div>${logHtml(t,false)}
+  ${t.status!=='Closed'?`<hr class="d"><label class="f">Add a comment<textarea id="noteText" placeholder="Type a message to the IT officer..."></textarea></label><div style="display:flex;justify-content:flex-end"><button class="btn sec" data-act="staffcomment" data-v="${t.id}">Send comment</button></div>`:`<div class="small muted">This ticket is closed.</div>`}</div>`;
+}
+function logHtml(t,showInternal){
+  return `<div class="log">${t.log.filter(l=>showInternal||l.kind!=='internal').slice().reverse().map(l=>`<div class="it"><span class="dot" style="background:${l.kind==='internal'?'var(--amber)':l.kind==='public'?'var(--blue)':'#98A2B3'}"></span><div class="${l.kind==='internal'?'internal':''}" style="flex:1">${l.kind==='internal'?'<div class="small" style="font-weight:600;color:var(--amber)">Internal note (IT only)</div>':''}${l.by&&l.kind!=='system'?`<b>${esc(l.by)}:</b> `:''}${esc(l.text)}<div class="small muted">${ago(l.at)}</div></div></div>`).join('')}</div>`;
+}
+
+/* ---------- Shared IT views ---------- */
+function side(items,active,act,userHtml){
+  return `<aside class="side"><div>${logo()}<nav class="nav">${items.map(([k,l,c])=>`<a data-act="${act}" data-v="${k}" class="${k===active?'on':''}"><span>${l}</span>${c!=null?`<span class="badge" style="background:rgba(255,255,255,.14);color:#fff">${c}</span>`:''}</a>`).join('')}</nav></div><div class="side-bottom">${userHtml||''}${profileBlock()}</div></aside>`;
+}
+const matchQ=(t,q)=>{q=q.trim().toLowerCase();if(!q)return true;return [t.id,t.subject,t.requester.name,t.requester.email,t.requester.division,t.category,t.assignee||'',t.status,t.priority].join(' ').toLowerCase().includes(q);};
+const searchBox=(ph)=>`<label class="search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="#5B6577" stroke-width="2"/><path d="m20 20-3.5-3.5" stroke="#5B6577" stroke-width="2" stroke-linecap="round"/></svg><input id="qbox" type="search" value="${esc(ui.q||'')}" placeholder="${ph}" aria-label="Search tickets">${ui.q?'<button type="button" data-act="qclear" aria-label="Clear search">✕</button>':''}</label>`;
+function ticketTable(list,selId,act,showAs){
+  if(!list.length)return `<div class="tbl"><div class="empty">No tickets here.</div></div>`;
+  return `<div class="tbl"><table class="tt"><thead><tr><th>Ticket</th><th>Priority</th><th>Status</th>${showAs?'<th>Assigned</th>':''}<th>SLA</th></tr></thead><tbody>${list.map(t=>{const [s,tone]=slaTxt(t);return `<tr class="row ${t.id===selId?'sel':''}" data-act="${act}" data-v="${t.id}"><td><b>${esc(t.subject)}</b><div class="small muted">${t.id} · ${esc(t.requester.name)}</div></td><td>${badge(t.priority,prTone[t.priority])}</td><td>${badge(t.status,stTone[t.status])}${t.escalated&&isOpen(t)?'<div style="margin-top:4px"><span class="badge b-esc">Escalated</span></div>':''}</td>${showAs?`<td>${t.assignee?esc(t.assignee):'<span class="muted">Unassigned</span>'}</td>`:''}<td style="color:var(--${tone});font-weight:600;white-space:nowrap">${s}</td></tr>`;}).join('')}</tbody></table></div>`;
+}
+function panel(t,mode){
+  if(!t)return `<div class="card empty">Select a ticket to see the details.</div>`;
+  const [s,tone]=slaTxt(t);const total=Math.max(1,t.due-t.created);
+  const pct=isOpen(t)?Math.min(100,Math.max(3,(now()-t.created)/total*100)):100;
+  const ro=mode==='em';
+  let ctrl;
+  if(mode==='officer'){
+    const mine=t.assignee===ui.officer;
+    const list=['Assigned','In Progress','On Hold','Resolved'];if(!list.includes(t.status))list.unshift(t.status);
+    ctrl=`<div class="grid3"><label class="f">Status<select data-act="setstatus" data-v="${t.id}" ${mine&&t.status!=='Closed'?'':'disabled'}>${opts(list,t.status)}</select></label><label class="f">Priority<select data-act="setpriority" data-v="${t.id}" ${mine&&isOpen(t)?'':'disabled'}>${opts(['Critical','High','Normal','Low'],t.priority)}</select></label><label class="f">Assigned to${t.assignee?`<input value="${esc(t.assignee)}" disabled>`:`<button class="btn" data-act="takeme" data-v="${t.id}" type="button">Assign to me</button>`}</label></div>`;
+  }else{
+    ctrl=`<div class="grid3"><label class="f">Status<select data-act="setstatus" data-v="${t.id}" ${ro?'disabled':''}>${opts(['Open','Assigned','In Progress','On Hold','Resolved','Closed'],t.status)}</select></label><label class="f">Assigned to<select data-act="assign" data-v="${t.id}" ${ro?'disabled':''}><option value="">Unassigned</option>${OFFICERS.map(o=>`<option ${o===t.assignee?'selected':''}>${o}</option>`).join('')}</select></label><label class="f">Priority<select data-act="setpriority" data-v="${t.id}" ${ro||!isOpen(t)?'disabled':''}>${opts(['Critical','High','Normal','Low'],t.priority)}</select></label></div>`;
+  }
+  const canWrite=!ro&&t.status!=='Closed'&&(mode==='manager'||t.assignee===ui.officer);
+  const nt=(ui.noteTab==='escalate'&&mode!=='officer')?'reply':ui.noteTab;
+  let compose;
+  if(nt==='escalate'){
+    compose=`<div class="notice n-violet">Need help or a decision? Escalate this ticket to the IT Manager. Only the IT Manager can reassign tickets to another officer.</div>${t.escalated?'<div class="small" style="color:var(--brand);font-weight:600">Already escalated. Sending again updates the reason.</div>':''}
+    <textarea id="noteText" placeholder="Reason (required), e.g. needs a replacement part approved"></textarea>
+    <div style="display:flex;justify-content:flex-end"><button class="btn" data-act="escalate" data-v="${t.id}">Escalate to IT Manager</button></div>`;
+  }else{
+    compose=`${nt==='internal'?'<div class="notice n-amber">Internal notes are only visible to IT staff.</div>':'<div class="notice n-blue">The requester sees replies in My Tickets and gets an email.</div>'}<textarea id="noteText" placeholder="${nt==='internal'?'Add a note for the IT team':'Write a reply to the requester'}"></textarea><div style="display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap"><button class="btn sec" data-act="post" data-v="${t.id}">${nt==='internal'?'Save note':'Send reply'}</button>${isOpen(t)&&t.assignee?`<button class="btn" data-act="resolve" data-v="${t.id}">Mark resolved</button>`:''}</div>`;
+  }
+  const notes=canWrite?`<div class="tabs"><a data-act="ntab" data-v="reply" class="${nt==='reply'?'on':''}">Reply</a><a data-act="ntab" data-v="internal" class="${nt==='internal'?'on':''}">Internal note</a>${mode==='officer'?`<a data-act="ntab" data-v="escalate" class="${nt==='escalate'?'on':''}">Escalate</a>`:''}</div>${compose}`
+    :(ro?`<div class="notice n-violet">Read-only view. Only the IT Manager and officers can change tickets.</div>`:'');
+  const escN=t.escalated&&isOpen(t)?`<div class="notice n-esc"><div class="kv" style="padding:0"><b>Escalated to IT Manager</b><span class="small muted">${ago(t.escalated.at)}</span></div><div style="margin-top:4px">${esc(t.escalated.by)}: "${esc(t.escalated.reason)}"</div>${mode==='manager'?`<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;align-items:center"><select id="escRe" aria-label="Reassign to" style="width:auto;flex:1;min-width:140px;padding:6px 10px">${OFFICERS.filter(o=>o!==t.assignee).map(o=>`<option>${o}</option>`).join('')}</select><button class="btn sm" data-act="escreassign" data-v="${t.id}">Reassign</button><button class="btn sec sm" data-act="escdone" data-v="${t.id}">Keep with ${esc(t.assignee||'officer')}</button></div>`:''}</div>`:'';
+  const said=t.impact!=null?`<div class="small muted" style="margin-top:6px">Requester said: ${IMPACTS[t.impact]} · ${URGENCIES[t.urgency]}</div>`:'';
+  const nLog=t.log.filter(l=>true).length;
+  return `<div class="card stack"><div class="kv"><span class="small muted" style="font-weight:600">${t.id} · ${esc(t.category)}</span><span style="display:flex;gap:8px;align-items:center"><button class="linkcopy" data-act="copylink" data-v="${t.id}" title="Copy a direct link to this ticket">Copy link</button>${badge(t.priority,prTone[t.priority])}</span></div><h2 style="font-size:20px">${esc(t.subject)}</h2>
+  ${escN}
+  <div style="background:var(--bg);border-radius:8px;padding:12px 14px"><div><b>${esc(t.requester.name)}</b> <span class="small muted">${esc(t.requester.email)} · ${esc(t.requester.division)} · ${esc(t.requester.level)}</span></div><div style="margin-top:6px">${esc(t.desc)}</div>${t.attachment?`<div class="small muted" style="margin-top:6px">Attachment: ${esc(t.attachment)}</div>`:''}${said}</div>
+  ${ctrl}
+  <div><div class="kv small"><span>${t.status==='On Hold'?'SLA clock paused':'Resolution due '+fmt(t.due)}</span><b style="color:var(--${tone})">${s}</b></div><div class="track" style="height:6px;margin-top:4px"><div class="fillb" style="width:${pct}%;background:var(--${tone})"></div></div></div>
+  ${notes}
+  ${progressHtml(t)}
+  <details class="acts" ${ui.actsOpen?'open':''}><summary>Activity history (${nLog})</summary>${logHtml(t,true)}</details></div>`;
+}
+
+/* ---------- Officer ---------- */
+function renderOfficer(){
+  const me=ui.officer;
+  const mine=S.tickets.filter(t=>t.assignee===me&&isOpen(t)).sort(sortQ);
+  const un=S.tickets.filter(t=>!t.assignee&&isOpen(t)).sort(sortQ);
+  const base=ui.officerTab==='queue'?mine:un;
+  const F={all:()=>true,overdue:isOver,critical:t=>t.priority==='Critical',hold:t=>t.status==='On Hold'};
+  const q=(ui.q||'').trim();
+  const list=q?S.tickets.filter(t=>matchQ(t,q)).sort((a,b)=>(isOpen(b)-isOpen(a))||(b.created-a.created)):base.filter(F[ui.qFilter]||F.all);
+  const sel=list.find(t=>t.id===ui.selQ)||list[0];
+  const user='';
+  const over=mine.filter(isOver).length;
+  const sideH=side([['queue','My Queue',mine.length],['unassigned','Unassigned',un.length],['workplan','Workplan']],ui.officerTab,'otab',user);
+  if(ui.officerTab==='workplan')return `<div class="app">${sideH}<main class="main">${workplan('officer')}${MAINFOOT}</main></div>`;
+  return `<div class="app">${sideH}<main class="main">
+  <div class="hdr"><div><h1>${ui.officerTab==='queue'?'My Queue':'Unassigned tickets'}</h1><div class="muted">${ui.officerTab==='queue'?`${mine.length} open tickets assigned to you · ${over} overdue`:`${un.length} tickets waiting for an officer`}</div></div><div class="hdr-actions">${searchBox('Search tickets')}<button class="btn" data-act="takenext" ${un.length?'':'disabled'}>Take next unassigned</button></div></div>
+  ${q?`<div class="qnote">${list.length} result${list.length===1?'':'s'} for "<b>${esc(q)}</b>" across all tickets · <a data-act="qclear">Clear search</a></div>`:''}<div class="chips" ${q?'style="opacity:.45"':''}>${[['all','All',base.length],['overdue','Overdue',base.filter(isOver).length],['critical','Critical',base.filter(F.critical).length],['hold','On Hold',base.filter(F.hold).length]].map(([k,l,c])=>`<button class="chip ${ui.qFilter===k?'on':''}" data-act="qf" data-v="${k}">${l} (${c})</button>`).join('')}</div>
+  <div class="split">${ticketTable(list,sel&&sel.id,'selq',false)}${panel(sel,'officer')}</div>${MAINFOOT}</main></div>`;
+}
+
+/* ---------- Manager / EM ---------- */
+function metrics(){
+  const T=S.tickets;const open=T.filter(isOpen);const done=T.filter(t=>!isOpen(t)&&t.resolvedAt);
+  const met=done.filter(t=>t.resolvedAt<=t.due);
+  const avg=done.length?done.reduce((a,t)=>a+bizBetween(t.created,t.resolvedAt),0)/done.length:0;
+  const fr=T.map(firstResp).filter(v=>v!=null);const frAvg=fr.length?fr.reduce((a,b)=>a+b,0)/fr.length:0;
+  const reop=done.length?Math.round(done.filter(t=>t.reopens).length/done.length*100):0;
+  return {fr:frAvg,reop,open:open.length,overdue:open.filter(isOver).length,unassigned:open.filter(t=>!t.assignee).length,resolved:done.length,sla:done.length?Math.round(met.length/done.length*100):0,avg};
+}
+function bar(label,val,max,color,txt){return `<div class="bar"><span>${esc(label)}</span><div class="track"><div class="fillb" style="width:${max?Math.max(2,val/max*100):0}%;background:${color}"></div></div><b style="text-align:right">${txt}</b></div>`;}
+/* ---------- Analytics helpers ---------- */
+function firstResp(t){if(t._fr!==undefined&&t._frN===t.log.length)return t._fr;const l=t.log.find(x=>x.at>t.created&&((x.kind==='public'&&x.by&&x.by!==t.requester.name)||(x.kind==='system'&&/^Status set to (In Progress|On Hold|Resolved)/.test(x.text))));const v=l?bizBetween(t.created,l.at):null;Object.defineProperty(t,'_fr',{value:v,writable:true,configurable:true,enumerable:false});Object.defineProperty(t,'_frN',{value:t.log.length,writable:true,configurable:true,enumerable:false});return v;}
+function officerStats(){const T=S.tickets;return OFFICERS.map(o=>{const a=T.filter(t=>t.assignee===o);const d=a.filter(t=>!isOpen(t)&&t.resolvedAt);const avg=d.length?d.reduce((s,t)=>s+bizBetween(t.created,t.resolvedAt),0)/d.length:0;const sla=d.length?Math.round(d.filter(t=>t.resolvedAt<=t.due).length/d.length*100):0;const frs=a.map(firstResp).filter(v=>v!=null);const fr=frs.length?frs.reduce((x,y)=>x+y,0)/frs.length:0;const reop=d.length?Math.round(d.filter(t=>t.reopens).length/d.length*100):0;const crit=a.filter(t=>t.priority==='Critical'||t.priority==='High').length;return {o,a:a.length,r:d.length,open:a.filter(isOpen).length,over:a.filter(isOver).length,avg,sla,fr,reop,crit};});}
+function fillNull(a){let last=null;const out=a.map(v=>{if(v==null)return last;last=v;return v;});const first=out.find(v=>v!=null);return out.map(v=>v==null?(first==null?0:first):v);}
+function trends(){
+  const T=S.tickets;const d0=new Date();d0.setHours(0,0,0,0);const DAY=864e5;
+  const days=[];for(let i=13;i>=0;i--)days.push(d0.getTime()-i*DAY);
+  const lab=days.map(s=>new Date(s).toLocaleDateString('en-AU',{day:'numeric',month:'short'}));
+  const opened=days.map(s=>T.filter(t=>t.created>=s&&t.created<s+DAY).length);
+  const resolved=days.map(s=>T.filter(t=>t.resolvedAt&&t.resolvedAt>=s&&t.resolvedAt<s+DAY).length);
+  const ws=weekStart(0).getTime();const weeks=[];for(let i=7;i>=0;i--)weeks.push(ws-i*7*DAY);
+  const wl=weeks.map(s=>new Date(s).toLocaleDateString('en-AU',{day:'numeric',month:'short'}));
+  const inW=s=>T.filter(t=>t.resolvedAt&&t.resolvedAt>=s&&t.resolvedAt<s+7*DAY);
+  const sla=fillNull(weeks.map(s=>{const d=inW(s);return d.length?Math.round(d.filter(t=>t.resolvedAt<=t.due).length/d.length*100):null;}));
+  const avg=fillNull(weeks.map(s=>{const d=inW(s);return d.length?+(d.reduce((a,t)=>a+bizBetween(t.created,t.resolvedAt),0)/d.length).toFixed(1):null;}));
+  const vol=weeks.map(s=>T.filter(t=>t.created>=s&&t.created<s+7*DAY).length);
+  return {lab,opened,resolved,wl,sla,avg,vol};
+}
+function lineChart(o){
+  const W=o.w||640,Hh=o.h||220,pl=40,pr=22,pt=18,pb=28;const n=o.labels.length;
+  const max=o.max||Math.max(1,...o.series.flatMap(s=>s.vals))*1.2;
+  const x=i=>pl+(n<2?0:i*(W-pl-pr)/(n-1));const y=v=>pt+(Hh-pt-pb)*(1-v/max);
+  const tc=o.dark?'#8FA3BF':'#5B6577',gc=o.dark?'#1B2F4F':'#ECE9E4';const f=o.yFmt||(v=>Math.round(v));
+  let g='';for(let k=0;k<=4;k++){const v=max*k/4;g+=`<line x1="${pl}" x2="${W-pr}" y1="${y(v)}" y2="${y(v)}" stroke="${gc}"/><text x="${pl-8}" y="${y(v)+4}" text-anchor="end" font-size="11" fill="${tc}">${f(v)}</text>`;}
+  const step=Math.ceil(n/7);let xl='';o.labels.forEach((l,i)=>{const last=i===n-1;if((i%step===0&&(n-1-i)>=step*0.6)||last)xl+=`<text x="${x(i)}" y="${Hh-8}" text-anchor="${last?'end':(i===0?'start':'middle')}" font-size="11" fill="${tc}">${l}</text>`;});
+  const tgt=o.target!=null?`<line x1="${pl}" x2="${W-pr}" y1="${y(o.target)}" y2="${y(o.target)}" stroke="#E8AE5C" stroke-width="1.5" stroke-dasharray="6 4"/><text x="${pl+6}" y="${y(o.target)+14}" text-anchor="start" font-size="11" font-weight="600" fill="${o.dark?'#E8AE5C':'#8A5C00'}">Target ${f(o.target)}</text>`:'';
+  const lines=o.series.map(s=>{const pts=s.vals.map((v,i)=>`${x(i)},${y(v)}`).join(' ');const area=s.area?`<polygon points="${x(0)},${y(0)} ${pts} ${x(n-1)},${y(0)}" fill="${s.color}" opacity="${o.dark?.18:.1}"/>`:'';return area+`<polyline points="${pts}" fill="none" stroke="${s.color}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>`+s.vals.map((v,i)=>`<circle cx="${x(i)}" cy="${y(v)}" r="3.2" fill="${s.color}"><title>${o.labels[i]} · ${s.name}: ${f(v)}</title></circle>`).join('');}).join('');
+  return `<div class="legend">${o.series.map(s=>`<span><i style="background:${s.color}"></i>${s.name}</span>`).join('')}</div><svg viewBox="0 0 ${W} ${Hh}" width="100%" role="img" aria-label="${esc(o.aria||'Trend chart')}">${g}${tgt}${lines}${xl}</svg>`;
+}
+const PCOL={Critical:'#E5533D',High:'#E0A100',Normal:'#3D7BD9',Low:'#98A2B3'};
+const kpiCard=(l,v,d,c,vc)=>`<div class="card kpi" style="padding:18px"><div class="small muted" style="font-weight:500">${l}</div><div class="v" style="${vc?'color:var(--'+vc+')':''}">${v}</div><div class="small" style="color:var(--${c});font-weight:500">${d}</div></div>`;
+function analytics(mode){
+  const m=metrics();const T=S.tickets;const tr=trends();const off=officerStats();
+  const cc=CATS.map(c=>[c,T.filter(t=>t.category===c).length]);const cmax=Math.max(...cc.map(x=>x[1]));
+  const pr=['Critical','High','Normal','Low'].map(p=>{const d=T.filter(t=>t.priority===p&&!isOpen(t)&&t.resolvedAt);return [p,d.length?Math.round(d.filter(t=>t.resolvedAt<=t.due).length/d.length*100):0];});
+  const escl=T.filter(t=>t.escalated&&isOpen(t)).sort(sortQ);
+  const kpis=`<div class="kpis">${kpiCard('Open tickets',m.open,m.unassigned+' unassigned','muted')}${kpiCard('Avg. first response',m.fr.toFixed(1)+' h','Working hours to first reply','muted')}${kpiCard('SLA compliance',m.sla+'%','Target 90% · '+m.resolved+' resolved',m.sla>=90?'green':'amber')}${kpiCard('Avg. resolution time',m.avg.toFixed(1)+' h','Working hours','muted')}${kpiCard(mode==='em'?'Escalated':'Overdue',mode==='em'?escl.length:m.overdue,mode==='em'?(escl.length?'With the IT Manager':'None open'):(m.overdue?'Needs attention':'All on track'),mode==='em'?'muted':(m.overdue?'red':'green'),mode==='em'?'':(m.overdue?'red':''))}</div>`;
+  const trendsRow=`<div class="dash2"><div class="card"><h2 style="font-size:16px">Tickets opened vs resolved</h2><div class="small muted">Last 14 days</div>${lineChart({labels:tr.lab,series:[{name:'Opened',color:'#D55647',vals:tr.opened,area:true},{name:'Resolved',color:'#2E9E62',vals:tr.resolved,area:true}],aria:'Tickets opened versus resolved per day'})}</div>
+  <div class="card"><h2 style="font-size:16px">SLA compliance trend</h2><div class="small muted">Weekly, last 8 weeks</div>${lineChart({labels:tr.wl,series:[{name:'Resolved within SLA',color:'#E08151',vals:tr.sla,area:true}],max:100,target:90,yFmt:v=>Math.round(v)+'%',aria:'Weekly SLA compliance'})}</div></div>`;
+  const barsRow=`<div class="dash2"><div class="card"><h2 style="font-size:16px">Tickets by category</h2><div class="small muted" style="margin-bottom:6px">${T.length} tickets logged</div>${cc.map(([c,v])=>bar(c,v,cmax,'linear-gradient(90deg,#D55647,#E8AE5C)',v)).join('')}</div>
+  <div class="card"><h2 style="font-size:16px">SLA compliance by priority</h2><div class="small muted" style="margin-bottom:6px">Resolved within target time</div>${pr.map(([p,v])=>bar(p,v,100,v>=90?'#2E9E62':'#E0A100',v+'%')).join('')}<div class="small muted" style="margin-top:8px">Target: 90%. Amber means below target.</div></div></div>`;
+  const perf=`<div class="stack"><div class="kv"><h2 style="font-size:16px">Officer performance</h2><span class="small muted">Times in working hours</span></div><div class="tbl"><table class="tt"><thead><tr><th>Officer</th><th title="Tickets assigned (High or Critical in brackets)">Assigned</th><th>Resolved</th><th>Open</th><th>Overdue</th><th title="Average working hours to first reply or action">1st response</th><th>Avg. resolution</th><th>SLA met</th><th title="Share of resolved tickets the requester reopened">Reopened</th></tr></thead><tbody>${off.map(r=>`<tr><td style="white-space:nowrap"><b>${r.o}</b></td><td>${r.a} <span class="small muted">(${r.crit})</span></td><td>${r.r}</td><td>${r.open}</td><td style="${r.over?'color:var(--red);font-weight:600':''}">${r.over}</td><td>${r.fr.toFixed(1)} h</td><td>${r.avg.toFixed(1)} h</td><td>${badge(r.sla+'%',r.sla>=90?'green':'amber')}</td><td>${badge(r.reop+'%',r.reop<=10?'green':'amber')}</td></tr>`).join('')}</tbody></table></div><div class="small muted">Figures show workload and service levels for team planning. Agree with the IT Manager before using them in individual appraisals.</div></div>`;
+  let side;
+  if(mode==='em'){
+    const open=T.filter(isOpen);const byP=['Critical','High','Normal','Low'].map(p=>[p,open.filter(t=>t.priority===p).length]);const bmax=Math.max(1,...byP.map(x=>x[1]));
+    side=`<div class="stack"><div class="card"><h2 style="font-size:16px">Open tickets by priority</h2><div class="small muted" style="margin-bottom:6px">${open.length} open now</div>${byP.map(([p,v])=>bar(p,v,bmax,PCOL[p],v)).join('')}</div>
+    <div class="card"><h2 style="font-size:16px">Average resolution time</h2><div class="small muted">Working hours, weekly</div>${lineChart({labels:tr.wl,series:[{name:'Avg. working hours to resolve',color:'#5B3CC4',vals:tr.avg,area:true}],w:380,h:220,yFmt:v=>v.toFixed(0)+'h',aria:'Average resolution time per week'})}</div></div>`;
+  }else{
+    const overdue=T.filter(isOver).sort(sortQ);const un=T.filter(t=>isOpen(t)&&!t.assignee).sort(sortQ);
+    const mini=t=>{const [s]=slaTxt(t);return `<div class="mini" data-act="goticket" data-v="${t.id}"><div class="kv"><span class="small muted" style="font-weight:600">${t.id}</span>${badge(t.priority,prTone[t.priority])}</div><b>${esc(t.subject)}</b><div class="small" style="color:${isOver(t)?'var(--red)':'var(--muted)'};font-weight:500">${t.assignee?esc(t.assignee):'Unassigned'} · ${s}</div></div>`;};
+    side=`<div class="stack"><div class="card stack"><div class="kv"><h2 style="font-size:16px">Escalated to you</h2>${badge(escl.length,escl.length?'amber':'green')}</div>${escl.length?escl.map(t=>`<div class="mini" data-act="goticket" data-v="${t.id}"><div class="kv"><span class="small muted" style="font-weight:600">${t.id}</span><span class="badge b-esc">Escalated</span></div><b>${esc(t.subject)}</b><div class="small muted">${esc(t.escalated.by)}: ${esc(t.escalated.reason)}</div><div class="small" style="color:var(--brand);font-weight:600;margin-top:4px">Open to reassign or keep with officer</div></div>`).join(''):'<div class="small muted">Nothing escalated.</div>'}</div>
+    <div class="card stack"><div class="kv"><h2 style="font-size:16px">Overdue</h2>${badge(overdue.length,overdue.length?'red':'green')}</div>${overdue.length?overdue.map(mini).join(''):'<div class="small muted">Nothing overdue.</div>'}</div>
+    <div class="card stack"><div class="kv"><h2 style="font-size:16px">Waiting for assignment</h2>${badge(un.length,un.length?'blue':'green')}</div>${un.length?un.map(mini).join(''):'<div class="small muted">Every ticket has an officer.</div>'}</div></div>`;
+  }
+  return kpis+trendsRow+barsRow+`<div class="dash3">${perf}${side}</div>`;
+}
+
+/* ---------- IT Manager ---------- */
+function renderManager(){
+  const openN=S.tickets.filter(isOpen).length;const escN=S.tickets.filter(t=>t.escalated&&isOpen(t)).length;
+  const user='';
+  let body;
+  if(ui.mgrTab==='dashboard'){
+    body=`<div class="hdr"><div><h1>Team Performance</h1><div class="muted">All divisions · Sample data</div></div><button class="btn" data-act="export">Export report</button></div>${analytics('manager')}`;
+  }else if(ui.mgrTab==='workplan'){
+    body=workplan('manager');
+  }else{
+    const F={open:isOpen,unassigned:t=>isOpen(t)&&!t.assignee,overdue:isOver,escalated:t=>t.escalated&&isOpen(t),closed:t=>!isOpen(t),all:()=>true};
+    const q=(ui.q||'').trim();
+    const list=S.tickets.filter(t=>q?matchQ(t,q):F[ui.allFilter](t)).sort((a,b)=>(isOpen(b)-isOpen(a))||(isOpen(a)?sortQ(a,b):(b.created-a.created)));
+    const sel=list.find(t=>t.id===ui.selAll)||list[0];
+    body=`<div class="hdr"><div><h1>All Tickets</h1><div class="muted">Assign, reassign and track every ticket</div></div><div class="hdr-actions">${searchBox('Search tickets')}<button class="btn sec" data-act="export">Export report</button></div></div>
+    ${q?`<div class="qnote">${list.length} result${list.length===1?'':'s'} for "<b>${esc(q)}</b>" across all tickets · <a data-act="qclear">Clear search</a></div>`:''}<div class="chips" ${q?'style="opacity:.45"':''}>${[['open','Open'],['unassigned','Unassigned'],['overdue','Overdue'],['escalated','Escalated'],['closed','Resolved / Closed'],['all','All']].map(([k,l])=>`<button class="chip ${ui.allFilter===k?'on':''}" data-act="af" data-v="${k}">${l} (${S.tickets.filter(F[k]).length})</button>`).join('')}</div>
+    <div class="split">${ticketTable(list,sel&&sel.id,'sela',true)}${panel(sel,'manager')}</div>`;
+  }
+  return `<div class="app">${side([['dashboard','Dashboard'],['all','All Tickets',openN],['workplan','Workplan']],ui.mgrTab,'mtab',(escN?`<div class="esc-note" data-act="af2esc">${escN} ticket${escN>1?'s':''} escalated to you</div>`:''))}<main class="main">${body}${MAINFOOT}</main></div>`;
+}
+
+/* ---------- Executive Manager ---------- */
+function renderEm(){
+  if(ui.tv)return renderTV();
+  const user='';
+  const body=`<div class="hdr"><div><h1>Service Desk Analytics</h1><div class="muted">All divisions · Sample data</div></div><button class="btn" data-act="tvopen">Open TV dashboard</button></div>
+  <div class="notice n-violet" style="margin-bottom:18px">Executive view: performance analytics only. Day-to-day ticket handling sits with the IT Manager and officers.</div>${analytics('em')}`;
+  return `<div class="app">${side([['dashboard','Analytics'],['tv','TV dashboard']],'dashboard','emtab',user)}<main class="main">${body}${MAINFOOT}</main></div>`;
+}
+function clock(){return new Date().toLocaleString('en-AU',{weekday:'short',day:'numeric',month:'short',hour:'numeric',minute:'2-digit',second:'2-digit'});}
+function renderTV(){
+  const m=metrics();const T=S.tickets;const tr=trends();const off=officerStats();
+  const open=T.filter(isOpen);const byP=['Critical','High','Normal','Low'].map(p=>[p,open.filter(t=>t.priority===p).length]);const bmax=Math.max(1,...byP.map(x=>x[1]));
+  const rmax=Math.max(1,...off.map(x=>x.r));const escl=T.filter(t=>t.escalated&&isOpen(t)).length;
+  const k=(l,v,sub,c)=>`<div class="tv-k"><div class="l">${l}</div><div class="v" style="${c?'color:'+c:''}">${v}</div><div class="s">${sub}</div></div>`;
+  return `<div class="tv"><div class="tv-top"><div class="logo"><img src="assets/emblem-color.png" alt="DICT emblem"><div><b style="font-size:22px">IT Service Desk · Live</b><small>Department of ICT</small></div></div><div class="tv-actions"><span id="tvclock" class="tv-clock">${clock()}</span><button class="btn sec sm" data-act="tvfull">Full screen</button><button class="btn sec sm" data-act="tvexit">Exit TV view</button></div></div>
+  <div class="tv-kpis">${k('Open tickets',m.open,m.unassigned+' unassigned')}${k('Overdue',m.overdue,'Past SLA target',m.overdue?'#FF8A73':'')}${k('SLA compliance',m.sla+'%','Target 90%',m.sla>=90?'#6EE7A8':'#F5C26B')}${k('Avg. first response',m.fr.toFixed(1)+'h','Working hours')}${k('Escalated',escl,'With the IT Manager',escl?'#F5C26B':'')}</div>
+  <div class="tv-grid"><div class="tv-card"><h2>Opened vs resolved · last 14 days</h2>${lineChart({labels:tr.lab,series:[{name:'Opened',color:'#F08A73',vals:tr.opened,area:true},{name:'Resolved',color:'#5BD69A',vals:tr.resolved,area:true}],dark:true})}</div>
+  <div class="tv-card"><h2>SLA compliance · weekly</h2>${lineChart({labels:tr.wl,series:[{name:'Resolved within SLA',color:'#E8AE5C',vals:tr.sla,area:true}],max:100,target:90,yFmt:v=>Math.round(v)+'%',dark:true})}</div>
+  <div class="tv-card"><h2>Open tickets by priority</h2>${byP.map(([p,v])=>bar(p,v,bmax,PCOL[p],v)).join('')}</div>
+  <div class="tv-card"><h2>Team · tickets resolved and SLA met</h2>${off.map(r=>bar(r.o,r.r,rmax,'linear-gradient(90deg,#D55647,#E8AE5C)',r.r+' · '+r.sla+'%')).join('')}</div></div>
+  <div class="tv-foot"><span>Auto-refreshes every 30 seconds · Sample data</span><b>Driving Digital Transformation in PNG</b></div></div>`;
+}
+
+/* ---------- Workplan ---------- */
+const PTYPES={'Team meeting':['#C2412E','#FFF3EC'],'Maintenance':['#1D5FBF','#E3EDFC'],'Task':['#475467','#EEF0F3'],'Training':['#5B3CC4','#EEE9FC'],'Leave':['#8A5C00','#FFF4D6']};
+function endT(start,d){const [h,m]=start.split(':').map(Number);const t=h*60+m+Math.round(d*60);return String(Math.floor(t/60)%24).padStart(2,'0')+':'+String(t%60).padStart(2,'0');}
+function meName(){return ui.role==='officer'?ui.officer:'IT Manager';}
+function workplan(mode){
+  const off=ui.wpWeek||0;const ws=weekStart(off);const days=[0,1,2,3,4].map(i=>addDays(ws,i));const me=meName();
+  const filt=ui.wpFilter||'all';const today=ymd(new Date());
+  const show=p=>filt==='all'||(filt==='mine'?(p.owner===me||p.owner==='Whole team'):p.owner===filt);
+  const range=days[0].toLocaleDateString('en-AU',{day:'numeric',month:'short'})+' – '+days[4].toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'});
+  const chips=mode==='officer'?[['all','Everyone'],['mine','Mine']]:[['all','Everyone'],['Whole team','Team meetings'],...OFFICERS.map(o=>[o,o.split(' ')[0]])];
+  const inWeek=S.plans.filter(p=>days.some(d=>ymd(d)===p.date));
+  const meetings=inWeek.filter(p=>p.type==='Team meeting').length;
+  return `<div class="hdr"><div><h1>Workplan</h1><div class="muted">Week of ${range} · ${inWeek.length} items · ${meetings} team meeting${meetings===1?'':'s'}</div></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sec" data-act="wpweek" data-v="-1">‹ Previous</button><button class="btn sec" data-act="wpweek" data-v="0">This week</button><button class="btn sec" data-act="wpweek" data-v="1">Next ›</button><button class="btn" data-act="planadd">Add to workplan</button></div></div>
+  <div class="kv" style="flex-wrap:wrap;margin-bottom:14px"><div class="chips" style="margin:0">${chips.map(([k,l])=>`<button class="chip ${filt===k?'on':''}" data-act="wpfilter" data-v="${esc(k)}">${esc(l)}</button>`).join('')}</div><div class="wp-legend">${Object.entries(PTYPES).map(([k,[c]])=>`<span><i style="background:${c}"></i>${k}</span>`).join('')}</div></div>
+  <div class="wp">${days.map(d=>{const y=ymd(d);const its=S.plans.filter(p=>p.date===y&&show(p)).sort((a,b)=>a.start.localeCompare(b.start));return `<div class="wpday ${y===today?'today':''}"><div class="wph"><b>${d.toLocaleDateString('en-AU',{weekday:'short'})}</b> ${d.toLocaleDateString('en-AU',{day:'numeric',month:'short'})}${y===today?' <span class="badge b-esc" style="margin-left:4px">Today</span>':''}</div>${its.length?its.map(p=>{const [c,bg]=PTYPES[p.type]||PTYPES.Task;return `<div class="wpi" style="border-left-color:${c};background:${bg}" data-act="planview" data-v="${p.id}"><div class="small" style="color:${c};font-weight:600">${p.start} – ${endT(p.start,p.dur)}</div><b>${esc(p.title)}</b><div class="small muted">${esc(p.owner)} · ${esc(p.type)}</div></div>`;}).join(''):'<div class="small muted" style="padding:8px 2px">Nothing scheduled</div>'}</div>`;}).join('')}</div>
+  <div class="small muted" style="margin-top:12px">Everyone in the IT team can see the workplan. Officers add their own tasks, maintenance, training and leave. Anyone can add a team meeting.</div>`;
+}
+
+/* ---------- Profile, settings, sign-in ---------- */
+const emailOf=n=>n.toLowerCase().replace(/[^a-z ]/g,'').trim().replace(/\s+/,'.')+'@ict.gov.pg';
+function curUser(){
+  if(ui.role==='officer')return {key:ui.officer,name:ui.officer,role:'IT Officer',email:emailOf(ui.officer)};
+  if(ui.role==='manager')return {key:'mgr',name:'IT Systems & Administration Manager',short:'IT Manager',role:'Full access',email:'it.manager@ict.gov.pg'};
+  return {key:'em',name:'Executive Manager',role:'Analytics · View only',email:'executive.manager@ict.gov.pg'};
+}
+function acct(u){S.acct=S.acct||{};if(!S.acct[u.key])S.acct[u.key]={mfa:u.key!=='Robert Gabi'&&u.key!=='Samuel Aisi',mfaAt:now()-40*24*H,pwdAt:now()-75*24*H,phone:'',notify:{assigned:true,sla:true,digest:false}};return S.acct[u.key];}
+const initials=n=>n.replace(/&/g,'').split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('');
+const IC={
+  user:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+  shield:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 3 5 6v5c0 4.5 3 8.5 7 10 4-1.5 7-5.5 7-10V6l-7-3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  key:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="8" cy="15" r="4" stroke="currentColor" stroke-width="2"/><path d="m11 12 9-9m-3 3 3 3m-6 0 2 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+  out:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 17l5-5-5-5M15 12H4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  swap:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M7 4 3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+};
+function profileBlock(){
+  const u=curUser();const a=acct(u);
+  const menu=ui.pmenu?`<div class="pmenu" role="menu"><div class="pm-head"><span class="av lg">${initials(u.name)}</span><div style="min-width:0"><b>${esc(u.name)}</b><div class="small muted" style="overflow:hidden;text-overflow:ellipsis">${esc(u.email)}</div><div style="margin-top:4px">${a.mfa?badge('MFA on','green'):badge('MFA required','red')}</div></div></div>
+    <a role="menuitem" data-act="settings" data-v="profile">${IC.user}Profile &amp; notifications</a>
+    <a role="menuitem" data-act="settings" data-v="security">${IC.shield}Multi-factor authentication</a>
+    <a role="menuitem" data-act="settings" data-v="password">${IC.key}Change password</a>
+    ${ui.role==='officer'?`<div class="pm-sw">${IC.swap}<span>Demo: switch officer</span><select data-act="officer" aria-label="Switch demo officer">${opts(OFFICERS,ui.officer)}</select></div>`:''}
+    <a role="menuitem" class="danger" data-act="signoutit">${IC.out}Sign out</a></div>`:'';
+  return `<div class="pwrap">${menu}<button type="button" class="pbtn" data-act="pmenu" aria-haspopup="menu" aria-expanded="${!!ui.pmenu}"><span class="av">${initials(u.name)}${a.mfa?'<i class="mfa-dot" title="MFA on"></i>':''}</span><span class="pt"><b>${esc(u.short||u.name)}</b><small>${esc(u.role)}</small></span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="transform:rotate(${ui.pmenu?0:180}deg);flex:none"><path d="m6 15 6-6 6 6" stroke="#AFC0D6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>`;
+}
+function fakeQR(seedStr){
+  let h=0;for(const c of seedStr)h=(h*31+c.charCodeAt(0))>>>0;const r=()=>{h=(h*1103515245+12345)>>>0;return h/4294967296;};
+  const N=25,cell=6;let rects='';
+  const finder=(x,y)=>`<rect x="${x*cell}" y="${y*cell}" width="${7*cell}" height="${7*cell}" fill="#08172C"/><rect x="${(x+1)*cell}" y="${(y+1)*cell}" width="${5*cell}" height="${5*cell}" fill="#fff"/><rect x="${(x+2)*cell}" y="${(y+2)*cell}" width="${3*cell}" height="${3*cell}" fill="#08172C"/>`;
+  const inF=(x,y)=>(x<8&&y<8)||(x>N-9&&y<8)||(x<8&&y>N-9);
+  for(let y=0;y<N;y++)for(let x=0;x<N;x++){if(!inF(x,y)&&r()>.52)rects+=`<rect x="${x*cell}" y="${y*cell}" width="${cell}" height="${cell}" fill="#08172C"/>`;}
+  return `<svg width="150" height="150" viewBox="0 0 ${N*cell} ${N*cell}" role="img" aria-label="Sample QR code"><rect width="100%" height="100%" fill="#fff"/>${rects}${finder(0,0)}${finder(N-7,0)}${finder(0,N-7)}</svg>`;
+}
+function settingsHtml(tab){
+  const u=curUser();const a=acct(u);
+  const tabs=[['profile','Profile'],['security','MFA'],['password','Password']];
+  let body='';
+  if(tab==='profile'){
+    body=`<div style="display:flex;gap:16px;align-items:center"><span class="av xl">${initials(u.name)}</span><div><b style="font-size:16px">${esc(u.name)}</b><div class="small muted">${esc(u.role)} · IT Division</div></div></div>
+    <div class="grid2"><label class="f">Work email<input value="${esc(u.email)}" disabled></label><label class="f">Phone / extension<input id="pfPhone" value="${esc(a.phone)}" placeholder="e.g. 2214"></label></div>
+    <div><div class="sec-label" style="margin-bottom:8px">EMAIL NOTIFICATIONS</div>
+    ${[['assigned','A ticket is assigned or escalated to me'],['sla','A ticket I own is close to breaching its SLA'],['digest','Daily summary at 8:00 am']].map(([k,l])=>`<label class="chk"><input type="checkbox" id="nf_${k}" ${a.notify[k]?'checked':''}> ${l}</label>`).join('')}</div>
+    <div style="display:flex;justify-content:space-between"><button class="btn sec" data-act="closemodal">Close</button><button class="btn" data-act="saveprofile">Save changes</button></div>`;
+  }else if(tab==='security'){
+    if(ui.mfaSetup){
+      body=`<div class="notice n-blue">Scan this code with Microsoft Authenticator or Google Authenticator, then enter the 6-digit code it shows.</div>
+      <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap"><div style="border:1px solid var(--border);border-radius:10px;padding:8px;background:#fff">${fakeQR(u.email)}</div><div class="stack" style="flex:1;min-width:200px"><div class="small muted">Can't scan it? Enter this setup key:</div><code class="key">JBSW Y3DP EHPK 3PXP</code><label class="f">6-digit code<input id="mfaCode" class="otp" maxlength="6" inputmode="numeric" placeholder="------" style="font-size:20px"></label><div class="small" style="color:var(--amber)"><b>Demo only:</b> use 482913</div></div></div>
+      <div style="display:flex;justify-content:space-between"><button class="btn sec" data-act="mfacancel">Back</button><button class="btn" data-act="mfaverify">Verify and turn on</button></div>`;
+    }else{
+      body=`<div class="sec-card"><div class="kv"><div style="display:flex;gap:10px;align-items:center">${IC.shield}<b>Multi-factor authentication (MFA)</b></div>${a.mfa?badge('On','green'):badge('Not set up · required','red')}</div>
+      <p class="small muted" style="margin:6px 0 0">MFA asks for a code from your phone each time you sign in, so a stolen password alone can't open your account. It's required for everyone in the IT Division, so it can't be turned off here. Contact the IT Manager if you lose your phone.</p>
+      ${a.mfa?`<div class="kv small" style="margin-top:10px"><span>Authenticator app</span><span class="muted">Added ${ago(a.mfaAt)}</span></div>
+      ${ui.showCodes?`<div class="codes">${['7KQ2-M9XD','P4TW-8HLN','R2VZ-6CJE','X9BF-3MQA','L5HD-7WTK','C8NY-2PRG','F3JS-9KVU','W6EA-4ZBM'].map(c=>`<code>${c}</code>`).join('')}</div><div class="small muted">Each recovery code works once. Keep them somewhere safe.</div>`:''}
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="btn sec sm" data-act="showcodes">${ui.showCodes?'Hide':'View'} recovery codes</button><button class="btn sec sm" data-act="mfasetup">Replace authenticator</button></div>`
+      :`<div style="margin-top:12px"><button class="btn" data-act="mfasetup">Set up authenticator app</button></div>`}</div>
+      <div class="sec-card"><div class="kv"><b>Where you're signed in</b><button class="btn sec sm" data-act="otherout">Sign out other devices</button></div><div class="small muted" style="margin-top:6px">This browser · DICT office network · active now</div></div>
+      <div style="display:flex;justify-content:flex-start"><button class="btn sec" data-act="closemodal">Close</button></div>`;
+    }
+  }else{
+    body=`<div class="small muted">Last changed ${ago(a.pwdAt)}.</div>
+    <label class="f">Current password<input type="password" id="pwCur" autocomplete="current-password"></label>
+    <label class="f">New password<input type="password" id="pwNew" autocomplete="new-password"></label>
+    <label class="f">Confirm new password<input type="password" id="pwNew2" autocomplete="new-password"></label>
+    <ul class="rules small"><li>At least 12 characters</li><li>Includes a number and a symbol</li><li>Not the same as your current password</li></ul>
+    ${ui.pwErr?`<div class="small" style="color:var(--red)">${esc(ui.pwErr)}</div>`:''}
+    <div style="display:flex;justify-content:space-between"><button class="btn sec" data-act="closemodal">Cancel</button><button class="btn" data-act="savepw">Update password</button></div>`;
+  }
+  return `<div class="overlay"><div class="dialog stack" style="width:620px"><div class="kv"><h2>Account settings</h2><button class="btn sec sm" data-act="closemodal" aria-label="Close">✕</button></div>
+  <div class="tabs">${tabs.map(([k,l])=>`<a data-act="settab" data-v="${k}" class="${tab===k?'on':''}">${l}</a>`).join('')}</div>${body}</div></div>`;
+}
+/* ---------- IT staff console sign-in ---------- */
+const IT_DIR=[{email:'mary.toua@ict.gov.pg',name:'Mary Toua',role:'officer'},{email:'robert.gabi@ict.gov.pg',name:'Robert Gabi',role:'officer'},{email:'samuel.aisi@ict.gov.pg',name:'Samuel Aisi',role:'officer'},{email:'lina.hosea@ict.gov.pg',name:'Lina Hosea',role:'officer'},{email:'it.manager@ict.gov.pg',name:'IT Systems & Administration Manager',role:'manager'},{email:'executive.manager@ict.gov.pg',name:'Executive Manager',role:'em'}];
+const DEMO_PW='Helpdesk2026!';
+const ROLE_LABEL={officer:'IT Officer',manager:'IT Manager',em:'Executive Manager'};
+function itSignedIn(){return !!(S.itSession&&S.itSession.role===ui.role);}
+function dirUserKey(d){return d.role==='officer'?d.name:(d.role==='manager'?'mgr':'em');}
+function loginScreen(){
+  const L=ui.login||(ui.login={step:'pw',email:'',err:'',fails:{}});
+  if(!L.step)L.step='pw';L.fails=L.fails||{};
+  const sug=IT_DIR.filter(d=>d.role===ui.role);
+  const who=L.who;const a=who?acct({key:dirUserKey(who)}):null;
+  const locked=L.lockUntil&&L.lockUntil>now();
+  let form;
+  if(L.step==='pw'){
+    form=`<form id="itLogin" class="stack" novalidate><div><h1 style="font-size:26px">Sign in</h1><div class="muted small">IT Help Desk console for IT Division staff</div></div>
+    <label class="f">Work email<input name="email" type="email" autocomplete="username" value="${esc(L.email||'')}" placeholder="name@ict.gov.pg" aria-invalid="${L.errField==='email'}" aria-describedby="err-email">${L.errField==='email'?`<span id="err-email" class="ferr">${esc(L.err)}</span>`:''}</label>
+    <label class="f">Password<span class="pwwrap"><input name="pw" type="${L.showPw?'text':'password'}" autocomplete="current-password" placeholder="Your password" aria-invalid="${L.errField==='pw'}" aria-describedby="err-pw"><button type="button" class="pwtoggle" data-act="pwshow" aria-label="${L.showPw?'Hide':'Show'} password">${L.showPw?'Hide':'Show'}</button></span>${L.errField==='pw'?`<span id="err-pw" class="ferr">${esc(L.err)}</span>`:''}</label>
+    ${locked?`<div class="notice n-esc"><b>Too many failed attempts.</b> This account is locked for 15 minutes. Contact the IT Manager if you need access sooner.</div>`:''}
+    <div class="kv small"><label class="chk" style="padding:0"><input type="checkbox" name="remember" checked> Keep me signed in (8 hours)</label><a data-act="forgot" style="color:var(--brandDark);font-weight:600;text-decoration:underline;white-space:nowrap">Forgot password?</a></div>
+    <button class="btn" type="submit" style="width:100%" ${locked?'disabled':''}>Continue</button>
+    <div class="demo-acc"><div class="small" style="font-weight:600;color:var(--amber)">Demo accounts · password ${DEMO_PW}</div><div class="demo-list">${sug.concat(IT_DIR.filter(d=>d.role!==ui.role)).map(d=>`<button type="button" class="chip" data-act="demoacc" data-v="${esc(d.email)}">${esc(d.role==='officer'?d.name:ROLE_LABEL[d.role])}</button>`).join('')}</div></div>
+    </form>`;
+  }else if(L.step==='mfa'){
+    form=`<form id="itMfa2" class="stack" novalidate><div><h1 style="font-size:24px">Verify it's you</h1><div class="muted small">Signed in as ${esc(who.email)}</div></div>
+    <div class="notice n-blue">Open your authenticator app and enter the 6-digit code for <b>DICT IT Help Desk</b>.</div>
+    <label class="f">Authentication code<input id="itCode2" class="otp" maxlength="6" inputmode="numeric" autocomplete="one-time-code" placeholder="------" aria-invalid="${!!L.err}" aria-describedby="err-code">${L.err?`<span id="err-code" class="ferr">${esc(L.err)}</span>`:''}</label>
+    <div class="small" style="color:var(--amber)"><b>Demo only:</b> use 482913</div>
+    <div style="display:flex;justify-content:space-between;gap:10px"><button type="button" class="btn sec" data-act="loginback">Back</button><button class="btn" type="submit">Verify and sign in</button></div>
+    <a class="small" data-act="lostphone" style="color:var(--brandDark);text-decoration:underline;font-weight:600">Lost your phone? Use a recovery code</a></form>`;
+  }else if(L.step==='enroll'){
+    form=`<form id="itEnroll" class="stack" novalidate><div><h1 style="font-size:24px">Set up two-step verification</h1><div class="muted small">Required for all IT staff before you can continue</div></div>
+    <div class="notice n-esc">Your account doesn't have MFA yet. Scan this code with Microsoft Authenticator or Google Authenticator, then enter the 6-digit code.</div>
+    <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><div style="border:1px solid var(--border);border-radius:10px;padding:8px;background:#fff">${fakeQR(who.email)}</div><div class="stack" style="flex:1;min-width:180px"><div class="small muted">Setup key</div><code class="key">JBSW Y3DP EHPK 3PXP</code></div></div>
+    <label class="f">6-digit code<input id="itEnrollCode" class="otp" maxlength="6" inputmode="numeric" placeholder="------" aria-invalid="${!!L.err}" aria-describedby="err-enr">${L.err?`<span id="err-enr" class="ferr">${esc(L.err)}</span>`:''}</label><div class="small" style="color:var(--amber)"><b>Demo only:</b> use 482913</div>
+    <div style="display:flex;justify-content:space-between;gap:10px"><button type="button" class="btn sec" data-act="loginback">Back</button><button class="btn" type="submit">Turn on and sign in</button></div></form>`;
+  }else if(L.step==='forgot'){
+    form=`<form id="itForgot" class="stack" novalidate><div><h1 style="font-size:24px">Reset your password</h1><div class="muted small">We'll email a reset link to your work address</div></div>
+    ${L.sent?`<div class="notice n-green">If <b>${esc(L.email)}</b> belongs to an IT staff account, a reset link is on its way. The link expires in 30 minutes.</div>`:`<label class="f">Work email<input name="email" type="email" value="${esc(L.email||'')}" placeholder="name@ict.gov.pg"></label>`}
+    <div style="display:flex;justify-content:space-between;gap:10px"><button type="button" class="btn sec" data-act="loginback">Back to sign in</button>${L.sent?'':'<button class="btn" type="submit">Send reset link</button>'}</div></form>`;
+  }
+  return `<div class="login"><section class="login-side"><img src="assets/seal-white.png" alt="Department of Information and Communications Technology seal" class="login-seal"><div class="eyebrow">IT HELP DESK · STAFF CONSOLE</div><h2 class="login-title">Manage tickets, <span class="hl">track SLAs</span> and keep the team in sync.</h2>
+  <ul class="login-points"><li>Your queue, sorted by what's overdue and urgent</li><li>Escalations, assignments and the team workplan</li><li>Performance dashboards for managers</li></ul>
+  <div class="login-sec"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="4" y="11" width="16" height="10" rx="2" stroke="#E8AE5C" stroke-width="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="#E8AE5C" stroke-width="2"/></svg>Available only on the DICT office network. Password and authenticator code required.</div></section>
+  <section class="login-main"><div class="card login-card">${form}</div><div class="small muted" style="text-align:center;margin-top:14px">Not IT staff? <a data-act="tostaff" style="color:var(--brandDark);font-weight:600;text-decoration:underline">Submit a request on the Help Desk</a></div></section></div>`;
+}
+function completeLogin(who){
+  S.itSession={email:who.email,role:who.role,name:who.name,at:now()};
+  if(who.role==='officer')ui.officer=who.name;
+  ui.role=who.role;ui.login=null;ui.tv=false;save();
+  toast('Welcome, '+(who.role==='officer'?who.name.split(' ')[0]:ROLE_LABEL[who.role]));
+  if(ui.pendingTicket){openTicketRoute(ui.pendingTicket);ui.pendingTicket=null;}
+  render();
+}
+/* ---------- Ticket links (hash routes) ---------- */
+function ticketLink(id){return location.href.split('#')[0]+'#t-'+id;}
+function openTicketRoute(id){
+  const t=find(id);if(!t){toast('Ticket '+id+' not found');return;}
+  if(ui.role==='staff'){ui.staffTab='mine';ui.selStaff=id;return;}
+  if(!itSignedIn()){ui.pendingTicket=id;return;}
+  if(ui.role==='officer'){ui.q=id;ui.selQ=id;ui.officerTab='queue';}
+  else if(ui.role==='manager'){ui.mgrTab='all';ui.q=id;ui.selAll=id;}
+  else toast('Tickets open in the IT Manager or officer view');
+}
+function routeFromHash(){const m=(location.hash||'').match(/^#t-(IT-\d{4}-\d{4})$/);if(m){openTicketRoute(m[1]);render();}}
+window.addEventListener('hashchange',routeFromHash);
+
+
+/* ---------- Modals ---------- */
+function exportData(kind){
+  const T=S.tickets;const q=v=>{const s=String(v==null?'':v);return /[",\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s;};
+  let rows;
+  if(kind==='officers'){rows=[['Officer','Assigned','High/Critical','Resolved','Open','Overdue','Avg first response (working hrs)','Avg resolution (working hrs)','SLA met %','Reopened %']].concat(officerStats().map(r=>[r.o,r.a,r.crit,r.r,r.open,r.over,r.fr.toFixed(1),r.avg.toFixed(1),r.sla,r.reop]));}
+  else if(kind==='sla'){rows=[['Priority','Resolved','Within SLA','SLA met %','Target (working hrs)']].concat(['Critical','High','Normal','Low'].map(p=>{const d=T.filter(t=>t.priority===p&&t.resolvedAt&&!isOpen(t));const ok=d.filter(t=>t.resolvedAt<=t.due).length;return [p,d.length,ok,d.length?Math.round(ok/d.length*100):0,SLA[p]];}));}
+  else {rows=[['Ticket','Created','Requester','Division','Category','Priority','Status','Assigned to','Due','Resolved','SLA']].concat(T.slice().sort((a,b)=>b.created-a.created).map(t=>[t.id,new Date(t.created).toISOString().slice(0,16).replace('T',' '),t.requester.name,t.requester.division,t.category,t.priority,t.status,t.assignee||'Unassigned',new Date(t.due).toISOString().slice(0,16).replace('T',' '),t.resolvedAt?new Date(t.resolvedAt).toISOString().slice(0,16).replace('T',' '):'',slaTxt(t)[0]]));}
+  return {rows,csv:rows.map(r=>r.map(q).join(',')).join('\n')};
+}
+function modalHtml(){
+  const md=ui.modal;if(!md)return '';
+  if(md.type==='settings')return settingsHtml(md.tab);
+  if(md.type==='export'){
+    const {rows,csv}=exportData(md.report);ui.exportCsv=csv;
+    const prev=rows.slice(0,9);
+    return `<div class="overlay"><div class="dialog stack" style="width:760px"><h2>Export report</h2><p class="muted" style="margin:0">Choose a report. In the live portal this downloads as an Excel-ready CSV or a PDF; in this demo you can copy the CSV.</p>
+    <label class="f">Report<select data-act="exportreport">${[['officers','Officer performance'],['sla','SLA summary by priority'],['tickets','All tickets (full list)']].map(([k,l])=>`<option value="${k}" ${md.report===k?'selected':''}>${l}</option>`).join('')}</select></label>
+    <div class="tbl" style="max-height:300px;overflow:auto"><table><thead><tr>${prev[0].map(h=>`<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${prev.slice(1).map(r=>`<tr>${r.map(c=>`<td class="small">${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
+    <div class="small muted">${rows.length-1} rows${rows.length>9?' · preview shows the first 8':''}</div>
+    <div style="display:flex;justify-content:space-between;gap:10px"><button class="btn sec" data-act="closemodal">Close</button><button class="btn" data-act="copycsv">Copy CSV</button></div></div></div>`;
+  }
+  if(md.type==='plan-add'){
+    const me=meName();const isMgr=ui.role==='manager';
+    const owners=isMgr?['Whole team',...OFFICERS,'IT Manager']:[me,'Whole team'];
+    const ws=weekStart(ui.wpWeek||0);const def=(ui.wpWeek||0)===0?ymd(new Date()):ymd(ws);
+    return `<div class="overlay"><form class="dialog stack" id="planForm" novalidate><h2>Add to workplan</h2>
+    <label class="f">Title<input name="title" placeholder="e.g. Patch Level 4 switches"></label>
+    <div class="grid2"><label class="f">Type<select name="type">${opts(Object.keys(PTYPES),'Task')}</select></label><label class="f">Who<select name="owner">${opts(owners,isMgr?'Whole team':me)}</select></label>
+    <label class="f">Date<input type="date" name="date" value="${def}"></label><label class="f">Start time<input type="time" name="start" value="09:00"></label>
+    <label class="f">Duration<select name="dur">${[['0.5','30 min'],['1','1 hour'],['1.5','1.5 hours'],['2','2 hours'],['3','3 hours'],['4','Half day'],['8','Full day']].map(([v,l])=>`<option value="${v}" ${v==='1'?'selected':''}>${l}</option>`).join('')}</select></label></div>
+    <label class="f">Notes (optional)<textarea name="notes" style="min-height:70px" placeholder="Agenda, location or details"></textarea></label>
+    <div style="display:flex;justify-content:space-between;gap:10px"><button type="button" class="btn sec" data-act="closemodal">Cancel</button><button class="btn" type="submit">Save to workplan</button></div></form></div>`;
+  }
+  if(md.type==='plan-view'){
+    const p=S.plans.find(x=>x.id===md.id);if(!p)return '';const [c]=PTYPES[p.type]||PTYPES.Task;const me=meName();
+    const canDel=ui.role==='manager'||p.by===me||p.owner===me;
+    const d=new Date(p.date+'T00:00:00');
+    return `<div class="overlay"><div class="dialog stack"><div class="kv"><span class="badge" style="background:${(PTYPES[p.type]||PTYPES.Task)[1]};color:${c}">${esc(p.type)}</span><span class="small muted">Added by ${esc(p.by)}</span></div><h2>${esc(p.title)}</h2>
+    <div><div class="kv"><span class="muted">When</span><b style="font-weight:500">${d.toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'long'})}, ${p.start} – ${endT(p.start,p.dur)}</b></div><div class="kv"><span class="muted">Who</span><b style="font-weight:500">${esc(p.owner)}</b></div></div>
+    ${p.notes?`<div class="small">${esc(p.notes)}</div>`:''}
+    <div style="display:flex;justify-content:space-between;gap:10px"><button class="btn sec" data-act="closemodal">Close</button>${canDel?`<button class="btn sec" style="color:var(--red)" data-act="plandel" data-v="${p.id}">Remove</button>`:''}</div></div></div>`;
+  }
+  return '';
+}
+
+/* ---------- OTP modal ---------- */
+function openOtp(det,onOk){ui.otp={det,onOk,err:''};renderModal();}
+function renderModal(){
+  const m=document.getElementById('modal');
+  if(!ui.otp){const had=!!m.innerHTML;m.innerHTML=modalHtml();if(m.innerHTML&&!had)setTimeout(()=>{const f=m.querySelector('.dialog input:not([disabled]),.dialog select,.dialog textarea,.dialog button');if(f)f.focus();},0);a11y();return;}
+  const d=ui.otp.det;
+  m.innerHTML=`<div class="overlay"><form class="dialog stack" id="otpForm" novalidate><img class="dlg-logo" src="assets/emblem-color.png" alt="DICT emblem"><h2>Check your email</h2><p class="muted" style="margin:0">We sent a 6-digit code to <b>${esc(d.email)}</b>. It expires in 10 minutes.</p><div class="notice n-amber"><b>Demo only:</b> your code is <b>${DEMO_CODE}</b>. In the real portal it arrives by email.</div><input id="otpIn" class="otp" maxlength="6" inputmode="numeric" autocomplete="one-time-code" placeholder="------">${ui.otp.err?`<div class="small" style="color:var(--red)">${esc(ui.otp.err)}</div>`:''}<div style="display:flex;justify-content:space-between;gap:10px"><button type="button" class="btn sec" data-act="otpcancel">Cancel</button><button class="btn" type="submit">Verify and continue</button></div><div class="small muted">Confirming your email proves it's really you. We only ask the first time on each device, so there's no password to remember.</div></form></div>`;
+  setTimeout(()=>{const i=document.getElementById('otpIn');if(i)i.focus();},0);
+}
+
+function createTicket(det,tk){
+  S.seq++;const id='IT-2026-'+String(S.seq).padStart(4,'0');
+  const t={id,subject:tk.subject,desc:tk.desc,category:tk.category,priority:tk.priority,impact:tk.impact,urgency:tk.urgency,status:'Open',requester:Object.assign({},det),assignee:null,created:now(),due:dueFor(now(),tk.priority),resolvedAt:null,attachment:tk.file,log:[]};
+  log(t,'system','Ticket created by '+det.name+'. Suggested priority '+tk.priority+' ('+IMPACTS[tk.impact]+' · '+URGENCIES[tk.urgency]+')');
+  S.tickets.push(t);ui.banner=id;ui.staffTab='mine';ui.selStaff=id;save();render();
+}
+
+/* ---------- Render ---------- */
+function renderGov(){
+  if(ui.role==='em'&&ui.tv){document.getElementById('govbar').innerHTML='';return;}
+  const shield=`<svg width="22" height="17" viewBox="0 0 40 30" role="img" aria-label="Flag of Papua New Guinea" style="flex:none;border-radius:2px;box-shadow:0 0 0 1px rgba(0,0,0,.12)"><polygon points="0,0 40,0 40,30" fill="#CE1126"/><polygon points="0,0 0,30 40,30" fill="#000"/><g fill="#fff"><circle cx="10" cy="12.5" r="1.6"/><circle cx="5.6" cy="18.6" r="1.6"/><circle cx="14.2" cy="17.6" r="1.6"/><circle cx="10" cy="25.4" r="1.6"/><circle cx="12.4" cy="21.3" r="1"/></g><path d="M21.5 11.5c3.2-3.4 7.6-4.4 11.8-3.2-1.9.7-2.9 1.6-3.2 2.7 3-.2 5.9.8 7.9 2.9-2.9-.4-5.6-.1-7.6.9l-1.8 4.1-.9-3.9c-2.4.1-4.7-.9-6.2-3.5Z" fill="#FCD116"/></svg>`;
+  const chev=`<svg width="12" height="12" viewBox="0 0 24 24" fill="none" style="transform:rotate(${ui.govOpen?180:0}deg)"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  const more=ui.govOpen?`<div class="govmore"><div class="gi"><svg width="36" height="36" viewBox="0 0 24 24" fill="none"><path d="M3 21h18M5 21V10m4 11V10m6 11V10m4 11V10M2 10h20L12 3 2 10Z" stroke="#08172C" stroke-width="1.6" stroke-linejoin="round"/></svg><div><b>Official websites use .gov.pg</b>A <b style="display:inline">.gov.pg</b> address means the website belongs to an official Government of Papua New Guinea organisation.</div></div><div class="gi"><svg width="36" height="36" viewBox="0 0 24 24" fill="none"><rect x="4" y="11" width="16" height="10" rx="2" stroke="#08172C" stroke-width="1.6"/><path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="#08172C" stroke-width="1.6"/></svg><div><b>Secure .gov.pg websites use HTTPS</b>A lock icon or <b style="display:inline">https://</b> means you're safely connected to the website. Only share information on official, secure websites.</div></div></div>`:'';
+  document.getElementById('govbar').innerHTML=`<div class="govbar"><div class="govin">${shield}<span>An official website of the <b>Government of Papua New Guinea</b></span><button type="button" data-act="govtoggle">Here's how you know ${chev}</button></div>${more}</div>`;
+}
+
+function render(){
+  autoClose();
+  const d=document.getElementById('noteText');const keep=d?d.value:'';
+  renderBar();renderGov();
+  const app=document.getElementById('app');
+  app.innerHTML=ui.role==='staff'?renderStaff():!itSignedIn()?loginScreen():ui.role==='officer'?renderOfficer():ui.role==='manager'?renderManager():renderEm();
+  const d2=document.getElementById('noteText');if(d2&&keep&&!ui.clearDraft)d2.value=keep;ui.clearDraft=false;
+  renderModal();
+  mfaNag();a11y();
+}
+function mfaNag(){if(ui.role==='staff'||!itSignedIn()||ui.tv)return;const u=curUser();if(acct(u).mfa)return;const m=document.querySelector('.main');if(m)m.insertAdjacentHTML('afterbegin',`<div class="notice n-esc" style="margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><span><b>Multi-factor authentication is required for IT staff.</b> Set it up now to keep your account secure.</span><button class="btn sm" data-act="settings" data-v="security">Set up MFA</button></div>`);}
+function a11y(){document.querySelectorAll('.tbl').forEach(el=>{if(el.scrollWidth>el.clientWidth+1){el.tabIndex=0;el.setAttribute('role','region');el.setAttribute('aria-label','Scrollable table');}});document.querySelectorAll('[data-act]:not(button):not(input):not(select):not(textarea):not(option)').forEach(el=>{if(!el.hasAttribute('tabindex'))el.setAttribute('tabindex','0');if(el.tagName!=='TR'&&!el.getAttribute('role'))el.setAttribute('role','button');});}
+document.addEventListener('keydown',e=>{
+  const el=e.target;
+  if((e.key==='Enter'||e.key===' ')&&el.dataset&&el.dataset.act&&!['BUTTON','INPUT','SELECT','TEXTAREA'].includes(el.tagName)){e.preventDefault();el.click();return;}
+  if(e.key==='Escape'){if(ui.pmenu){ui.pmenu=false;render();return;}if(ui.modal||ui.otp){ui.modal=null;ui.otp=null;ui.mfaSetup=false;renderModal();return;}}
+  if(e.key==='Tab'){const d=document.querySelector('#modal .dialog');if(!d)return;const f=[...d.querySelectorAll('button,input,select,textarea,[tabindex="0"]')].filter(x=>!x.disabled);if(!f.length)return;const first=f[0],last=f[f.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}else if(!d.contains(document.activeElement)){e.preventDefault();first.focus();}}
+});
+
+/* ---------- Events ---------- */
+document.addEventListener('click',e=>{
+  if(ui.pmenu&&!e.target.closest('.pwrap')){ui.pmenu=false;if(!e.target.closest('[data-act]')){render();return;}}
+  const el=e.target.closest('[data-act]');if(!el)return;
+  if(el.tagName==='SELECT')return;
+  const a=el.dataset.act,v=el.dataset.v;let t;
+  if(v&&/^IT-/.test(v)&&!['selq','sela','goticket','takenext'].includes(a)){if(ui.role==='officer')ui.selQ=v;else if(ui.role==='manager')ui.selAll=v;}
+  switch(a){
+    case 'role':ui.role=v;ui.clearDraft=true;ui.q='';ui.pmenu=false;if(v!=='staff'&&!itSignedIn()){ui.login={step:'pw',email:(IT_DIR.find(d=>d.role===v)||{}).email||'',err:''};}break;
+    case 'reset':S=seed();ui=Object.assign({},UI0,{role:ui.role});try{localStorage.removeItem(KEY);}catch(err){}toast('Demo reset to sample data');break;
+    case 'stab':ui.staffTab=v;ui.banner=null;break;
+    case 'sample':{const f=document.getElementById('submitForm');f.email.value='j.kila@ict.gov.pg';f.name.value='John Kila';f.division.value='Shared Services';f.level.value='Level 3';f.category.value='Email & Accounts';f.subject.value="Can't sign in to Outlook on my laptop";f.desc.value="Since this morning Outlook keeps asking for my password and won't accept it. Webmail still works.";return;}
+    case 'samplesignin':{document.getElementById('signinForm').email.value='j.kila@ict.gov.pg';return;}
+    case 'signout':S.session=null;ui.selStaff=null;ui.banner=null;toast('Signed out on this browser');break;
+    case 'selstaff':ui.selStaff=v;ui.clearDraft=true;break;
+    case 'otab':ui.officerTab=v;ui.selQ=null;ui.qFilter='all';break;
+    case 'qf':ui.qFilter=v;ui.selQ=null;break;
+    case 'selq':ui.selQ=v;ui.clearDraft=true;break;
+    case 'mtab':ui.mgrTab=v;break;
+    case 'af':ui.allFilter=v;ui.selAll=null;break;
+    case 'sela':ui.selAll=v;ui.clearDraft=true;break;
+    case 'goticket':{const g=find(v);ui.mgrTab='all';ui.allFilter=g&&g.escalated&&isOpen(g)?'escalated':(g&&isOpen(g)?'open':'all');ui.selAll=v;break;}
+    case 'ntab':ui.noteTab=v;break;
+    case 'escalate':{t=find(v);const ta=document.getElementById('noteText');const why=ta?ta.value.trim():'';if(!why){toast('Add a reason first');return;}
+      t.escalated={at:now(),by:ui.officer,reason:why};log(t,'internal','Escalated to IT Manager: '+why,ui.officer);toast('Escalated to the IT Manager');ui.clearDraft=true;ui.noteTab='reply';break;}
+    case 'escreassign':{t=find(v);const to=document.getElementById('escRe').value;const from=t.assignee;t.assignee=to;t.escalated=null;if(t.status==='Open')t.status='Assigned';log(t,'internal','Escalation handled: reassigned from '+(from||'nobody')+' to '+to,'IT Manager');log(t,'system','Reassigned to '+to+' by IT Manager');toast(t.id+' reassigned to '+to);break;}
+    case 'escdone':t=find(v);t.escalated=null;log(t,'system','Escalation handled by IT Manager (kept with '+(t.assignee||'officer')+')');toast('Escalation handled. Ticket stays with '+(t.assignee||'officer'));break;
+    case 'emtab':if(v==='tv'){ui.tv=true;}break;
+    case 'tvopen':ui.tv=true;break;
+    case 'tvexit':ui.tv=false;try{if(document.fullscreenElement)document.exitFullscreen();}catch(err){}break;
+    case 'tvfull':{try{const r=document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();if(r&&r.catch)r.catch(()=>toast('Full screen isn\'t available here. Use your browser\'s full screen (F11).'));}catch(err){toast('Full screen isn\'t available here.');}return;}
+    case 'export':ui.modal={type:'export',report:'officers'};renderModal();return;
+    case 'copycsv':{const c=ui.exportCsv||'';try{navigator.clipboard.writeText(c).then(()=>toast('CSV copied. Paste it into Excel or Sheets.'),()=>toast('Copy was blocked here.'));}catch(err){toast('Copy was blocked here.');}return;}
+    case 'closemodal':ui.modal=null;ui.mfaSetup=false;ui.showCodes=false;ui.pwErr='';renderModal();return;
+    case 'pmenu':ui.pmenu=!ui.pmenu;render();return;
+    case 'settings':ui.pmenu=false;ui.mfaSetup=false;ui.showCodes=false;ui.pwErr='';ui.modal={type:'settings',tab:v};render();return;
+    case 'settab':ui.mfaSetup=false;ui.pwErr='';ui.modal={type:'settings',tab:v};renderModal();return;
+    case 'saveprofile':{const a=acct(curUser());a.phone=(document.getElementById('pfPhone').value||'').trim();['assigned','sla','digest'].forEach(k=>{a.notify[k]=document.getElementById('nf_'+k).checked;});save();toast('Profile saved');return;}
+    case 'mfasetup':ui.mfaSetup=true;renderModal();return;
+    case 'mfacancel':ui.mfaSetup=false;renderModal();return;
+    case 'mfaverify':{const c=(document.getElementById('mfaCode').value||'').trim();if(c!==DEMO_CODE){toast("That code isn't right. Try 482913 in the demo.");return;}const a=acct(curUser());a.mfa=true;a.mfaAt=now();ui.mfaSetup=false;save();toast('MFA is on for your account');render();return;}
+    case 'mfaoff':{const a=acct(curUser());a.mfa=false;ui.showCodes=false;save();toast('MFA turned off. We recommend turning it back on.');render();return;}
+    case 'showcodes':ui.showCodes=!ui.showCodes;renderModal();return;
+    case 'otherout':toast('Signed out of all other devices');return;
+    case 'savepw':{const c=document.getElementById('pwCur').value,n=document.getElementById('pwNew').value,n2=document.getElementById('pwNew2').value;
+      ui.pwErr=!c?'Enter your current password.':n.length<12?'New password must be at least 12 characters.':!(/\d/.test(n)&&/[^A-Za-z0-9]/.test(n))?'New password needs a number and a symbol.':n===c?'New password must be different from the current one.':n!==n2?"The new passwords don't match.":'';
+      if(ui.pwErr){renderModal();return;}const a=acct(curUser());a.pwdAt=now();save();ui.modal=null;toast('Password updated. Other devices have been signed out.');renderModal();return;}
+    case 'signoutit':ui.pmenu=false;S.itSession=null;ui.login={step:'pw',email:'',err:''};ui.tv=false;ui.q='';save();toast('You have signed out');break;
+    case 'demoacc':{ui.login=ui.login||{};ui.login.email=v;ui.login.err='';ui.login.errField='';render();setTimeout(()=>{const f=document.querySelector('#itLogin input[name=pw]');if(f){f.value=DEMO_PW;f.focus();}},0);return;}
+    case 'pwshow':{const f=document.querySelector('#itLogin input[name=pw]');const keep=f?f.value:'';const em=document.querySelector('#itLogin input[name=email]');ui.login.email=em?em.value:ui.login.email;ui.login.showPw=!ui.login.showPw;render();const f2=document.querySelector('#itLogin input[name=pw]');if(f2){f2.value=keep;f2.focus();}return;}
+    case 'forgot':{const em=document.querySelector('#itLogin input[name=email]');ui.login.email=em?em.value:'';ui.login.step='forgot';ui.login.sent=false;break;}
+    case 'loginback':ui.login.step='pw';ui.login.err='';ui.login.errField='';ui.login.sent=false;break;
+    case 'lostphone':toast('Enter a recovery code instead, or ask the IT Manager to reset your MFA.');return;
+    case 'tostaff':ui.role='staff';ui.staffTab='submit';break;
+    case 'copylink':{const url=ticketLink(v);try{navigator.clipboard.writeText(url).then(()=>toast('Link copied: '+v),()=>toast(url));}catch(err){toast(url);}try{history.replaceState(null,'','#t-'+v);}catch(err){}return;}
+    case 'qclear':ui.q='';break;
+    case 'toggleolder':ui.showOlder=!ui.showOlder;break;
+    case 'af2esc':ui.mgrTab='all';ui.allFilter='escalated';ui.selAll=null;break;
+    case 'planadd':ui.modal={type:'plan-add'};renderModal();return;
+    case 'planview':ui.modal={type:'plan-view',id:v};renderModal();return;
+    case 'plandel':S.plans=S.plans.filter(x=>x.id!==v);ui.modal=null;toast('Removed from the workplan');break;
+    case 'wpweek':ui.wpWeek=v==='0'?0:(ui.wpWeek||0)+Number(v);break;
+    case 'wpfilter':ui.wpFilter=v;break;
+    case 'takeme':t=find(v);t.assignee=ui.officer;if(t.status==='Open')t.status='Assigned';log(t,'system','Assigned to '+ui.officer+' (self-assigned)');ui.officerTab='queue';ui.qFilter='all';ui.selQ=v;toast(v+' is now in your queue');break;
+    case 'takenext':{const un=S.tickets.filter(x=>!x.assignee&&isOpen(x)).sort(sortQ);if(!un.length)return;t=un[0];t.assignee=ui.officer;if(t.status==='Open')t.status='Assigned';log(t,'system','Assigned to '+ui.officer+' (took next unassigned)');ui.officerTab='queue';ui.qFilter='all';ui.selQ=t.id;toast(t.id+' added to your queue');break;}
+    case 'resolve':t=find(v);setStatus(t,'Resolved',byName());toast('Marked resolved. The requester is asked to confirm.');break;
+    case 'post':{t=find(v);const ta=document.getElementById('noteText');const txt=ta?ta.value.trim():'';if(!txt){toast('Write a message first');return;}log(t,ui.noteTab==='internal'?'internal':'public',txt,byName());ui.clearDraft=true;ta.value='';toast(ui.noteTab==='internal'?'Internal note saved':'Reply sent to requester');break;}
+    case 'staffcomment':{t=find(v);const ta=document.getElementById('noteText');const txt=ta?ta.value.trim():'';if(!txt){toast('Write a message first');return;}log(t,'public',txt,t.requester.name);ui.clearDraft=true;ta.value='';toast('Comment sent to the IT officer');break;}
+    case 'confirmfix':t=find(v);t.status='Closed';log(t,'system','Closed: requester confirmed it was fixed');toast('Thanks! Ticket closed.');break;
+    case 'reopen':t=find(v);t.reopens=(t.reopens||0)+1;t.status='In Progress';t.resolvedAt=null;log(t,'system','Reopened by '+t.requester.name+': still not working');toast('Ticket reopened');break;
+    case 'govtoggle':ui.govOpen=!ui.govOpen;renderGov();return;
+    case 'otpcancel':ui.otp=null;renderModal();return;
+    default:return;
+  }
+  save();render();
+});
+document.addEventListener('input',e=>{if(e.target.id==='qbox'){ui.q=e.target.value;const pos=e.target.selectionStart;render();const b=document.getElementById('qbox');if(b){b.focus();try{b.setSelectionRange(pos,pos);}catch(err){}}}});
+document.addEventListener('change',e=>{
+  const el=e.target;const a=el.dataset&&el.dataset.act;if(!a)return;
+  const tid=el.dataset.v;if(tid&&/^IT-/.test(tid)){if(ui.role==='officer')ui.selQ=tid;else if(ui.role==='manager')ui.selAll=tid;}
+  if(a==='officer'){ui.officer=el.value;if(S.itSession){S.itSession.name=el.value;S.itSession.email=emailOf(el.value);}ui.selQ=null;ui.pmenu=false;toast('Now viewing as '+el.value);}
+  else if(a==='setstatus'){setStatus(find(el.dataset.v),el.value,byName());}
+  else if(a==='setpriority'){const t=find(el.dataset.v);const old=t.priority;t.priority=el.value;const paused=t.status==='On Hold'&&t.holdAt?bizBetween(t.holdAt,now()):0;t.due=dueFor(t.created,t.priority);log(t,'system','Priority changed from '+old+' to '+t.priority+' by '+byName()+'. New due time '+fmt(t.due));}
+  else if(a==='exportreport'){ui.modal={type:'export',report:el.value};renderModal();return;}
+  else if(a==='assign'){const t=find(el.dataset.v);if(t.escalated){t.escalated=null;log(t,'system','Escalation handled by IT Manager (reassigned)');}const v=el.value||null;t.assignee=v;if(v&&t.status==='Open')t.status='Assigned';if(!v&&t.status==='Assigned')t.status='Open';log(t,'system',v?('Assigned to '+v+' by IT Manager'):'Unassigned by IT Manager');}
+  else return;
+  save();render();
+});
+document.addEventListener('submit',e=>{
+  e.preventDefault();
+  const f=e.target;
+  if(f.id==='submitForm'){
+    const fd=new FormData(f);const p=S.session&&S.profiles[S.session];
+    const det=p?Object.assign({},p):{email:String(fd.get('email')||'').trim().toLowerCase(),name:String(fd.get('name')||'').trim(),division:fd.get('division'),level:fd.get('level')};
+    if(!/^[^@\s]+@ict\.gov\.pg$/.test(det.email)){toast('Please use your @ict.gov.pg email');return;}
+    if(!det.name){toast('Please add your full name');return;}
+    const file=fd.get('file');
+    const imp=Number(fd.get('impact')||0),urg=Number(fd.get('urgency')||1);const tk={category:fd.get('category'),impact:imp,urgency:urg,priority:suggestPriority(imp,urg),subject:String(fd.get('subject')||'').trim(),desc:String(fd.get('desc')||'').trim(),file:file&&file.name?file.name:''};
+    if(!tk.subject||!tk.desc){toast('Add a subject and description');return;}
+    if(p)createTicket(det,tk);else openOtp(det,()=>createTicket(det,tk));
+  }else if(f.id==='signinForm'){
+    const email=String(new FormData(f).get('email')||'').trim().toLowerCase();
+    if(!/^[^@\s]+@ict\.gov\.pg$/.test(email)){toast('Please use your @ict.gov.pg email');return;}
+    const prev=S.tickets.find(t=>t.requester.email===email);
+    const det=S.profiles[email]||(prev?Object.assign({},prev.requester):{email,name:email.split('@')[0],division:DIVS[0],level:'Level 1'});
+    openOtp(det,()=>{ui.staffTab='mine';render();});
+  }else if(f.id==='itLogin'){
+    const L=ui.login;L.fails=L.fails||{};const fd=new FormData(f);const email=String(fd.get('email')||'').trim().toLowerCase();const pw=String(fd.get('pw')||'');L.email=email;L.err='';L.errField='';
+    if(L.lockUntil&&L.lockUntil>now()){render();return;}
+    if(!/^[^@\s]+@ict\.gov\.pg$/.test(email)){L.err='Use your @ict.gov.pg work email.';L.errField='email';render();return;}
+    if(!pw){L.err='Enter your password.';L.errField='pw';render();return;}
+    const who=IT_DIR.find(d=>d.email===email);
+    if(!who||pw!==DEMO_PW){L.fails=L.fails||{};L.fails[email]=(L.fails[email]||0)+1;const left=5-L.fails[email];if(left<=0){L.lockUntil=now()+15*60e3;L.err='';}else{L.err="Email or password isn't right. "+left+' attempt'+(left===1?'':'s')+' left before the account locks.';L.errField='pw';}render();return;}
+    L.fails[email]=0;L.who=who;L.step=acct({key:dirUserKey(who)}).mfa?'mfa':'enroll';render();setTimeout(()=>{const i=document.getElementById(L.step==='mfa'?'itCode2':'itEnrollCode');if(i)i.focus();},0);
+  }else if(f.id==='itMfa2'){
+    const L=ui.login;const c=(document.getElementById('itCode2').value||'').trim();
+    if(c!==DEMO_CODE){L.err="That code isn't right. Codes change every 30 seconds, so try the latest one.";render();return;}
+    completeLogin(L.who);
+  }else if(f.id==='itEnroll'){
+    const L=ui.login;const c=(document.getElementById('itEnrollCode').value||'').trim();
+    if(c!==DEMO_CODE){L.err="That code isn't right. Try again.";render();return;}
+    const a=acct({key:dirUserKey(L.who)});a.mfa=true;a.mfaAt=now();completeLogin(L.who);
+  }else if(f.id==='itForgot'){
+    const L=ui.login;const email=String(new FormData(f).get('email')||'').trim();L.email=email;
+    if(!email){toast('Enter your work email');return;}L.sent=true;render();
+  }else if(f.id==='planForm'){
+    const fd=new FormData(f);const title=String(fd.get('title')||'').trim();const date=String(fd.get('date')||'');const start=String(fd.get('start')||'09:00');
+    if(!title){toast('Add a title');return;}if(!date){toast('Pick a date');return;}
+    S.pseq=(S.pseq||0)+1;const pl={id:'P'+S.pseq,title,type:fd.get('type'),owner:fd.get('owner'),date,start,dur:Number(fd.get('dur')||1),notes:String(fd.get('notes')||'').trim(),by:meName()};
+    S.plans.push(pl);const wk=Math.round((weekStart(0).getTime()-0)/1);const dd=new Date(date+'T00:00:00');const diff=Math.round(((dd.getTime()-((dd.getDay()+6)%7)*864e5)-weekStart(0).getTime())/(7*864e5));ui.wpWeek=diff;ui.modal=null;save();toast('Added to the workplan');render();
+  }else if(f.id==='otpForm'){
+    const code=(document.getElementById('otpIn').value||'').trim();
+    if(code!==DEMO_CODE){ui.otp.err="That code isn't right. Check your email and try again.";renderModal();return;}
+    const d=ui.otp.det;S.profiles[d.email]=Object.assign({},S.profiles[d.email]||{},d);S.session=d.email;
+    const cb=ui.otp.onOk;ui.otp=null;save();toast('Email confirmed. This browser will remember you.');cb();render();
+  }
+});
+routeFromHash();
+render();
+setInterval(()=>{const c=document.getElementById('tvclock');if(c)c.textContent=clock();},1000);
+setInterval(()=>{if(ui.role==='em'&&ui.tv&&!ui.modal)render();},30000);
+</script>
+</body>
+</html>
